@@ -1,0 +1,29 @@
+{
+  "name": "neotube",
+  "version": "1.0.0",
+  "description": "With nomadcoders",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --exec babel-node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cjkangme/youtube-clone.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cjkangme/youtube-clone/issues"
+  },
+  "homepage": "https://github.com/cjkangme/youtube-clone#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.19.6",
+    "@babel/node": "^7.20.0",
+    "@babel/preset-env": "^7.19.4",
+    "nodemon": "^2.0.20"
+  }
+}
