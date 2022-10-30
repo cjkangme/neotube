@@ -1,21 +1,24 @@
+// Global Routers
 export const homeVideo = (req, res) => {
-  res.send('Main Video');
+  res.render('home', { pageTitle: 'Home' });
 };
 
 export const search = (req, res) => {
   res.send('Search');
 };
 
+// Video Routers
 export const watchVideo = (req, res) => {
-  res.send('Watch Video');
+  return res.render('watch', { pageTitle: 'Watch' });
 };
 
 export const editVideo = (req, res) => {
-  res.send('Edit Video');
+  return res.render('edit', { pageTitle: 'Edit' });
 };
 
 export const deleteVideo = (req, res) => {
-  res.send('Delete Video');
+  console.log(req.params);
+  return res.send('Delete Video');
 };
 
 export const uploadVideo = (req, res) => {
