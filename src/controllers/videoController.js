@@ -1,11 +1,16 @@
-// Global Routers
-const fakeUser = {
-  username: 'faker',
-  loggedIn: false,
-};
-
 export const homeVideo = (req, res) => {
-  res.render('home', { pageTitle: 'Home', fakeUser: fakeUser });
+  const videos = [
+    {
+      title: 'Hello',
+    },
+    {
+      title: 'Video #2',
+    },
+    {
+      title: 'nice',
+    },
+  ];
+  res.render('home', { pageTitle: 'Home', videos });
 };
 
 export const search = (req, res) => {
