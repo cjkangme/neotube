@@ -1,9 +1,9 @@
 extends base.pug
+include mixins/video
 
 block content
     h2 Welcome! Here you will see the recommendations!
-    ul
-        each video in videos
-            li=video.title
-        else
-            li Sorry Nothing Found
+    each video in videos
+        +video(video)
+    else
+        li Sorry Nothing Found
