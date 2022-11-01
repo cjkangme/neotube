@@ -1,31 +1,32 @@
+let videos = [
+  {
+    title: 'First Video',
+    rating: 5,
+    comments: 2,
+    createdAt: '2 minuites ago',
+    views: 59,
+    id: 0,
+  },
+  {
+    title: 'Second Video',
+    rating: 5,
+    comments: 2,
+    createdAt: '2 minuites ago',
+    views: 1,
+    id: 1,
+  },
+  {
+    title: 'Third Video',
+    rating: 5,
+    comments: 2,
+    createdAt: '2 minuites ago',
+    views: 59,
+    id: 2,
+  },
+];
+
 export const homeVideo = (req, res) => {
-  const videos = [
-    {
-      title: 'First Video',
-      rating: 5,
-      comments: 2,
-      createdAt: '2 minuites ago',
-      views: 59,
-      id: 1,
-    },
-    {
-      title: 'Second Video',
-      rating: 5,
-      comments: 2,
-      createdAt: '2 minuites ago',
-      views: 59,
-      id: 1,
-    },
-    {
-      title: 'Third Video',
-      rating: 5,
-      comments: 2,
-      createdAt: '2 minuites ago',
-      views: 59,
-      id: 1,
-    },
-  ];
-  res.render('home', { pageTitle: 'Home', videos });
+  res.render('home', { pageTitle: 'Home', videos: videos });
 };
 
 export const search = (req, res) => {
@@ -34,7 +35,15 @@ export const search = (req, res) => {
 
 // Video Routers
 export const watchVideo = (req, res) => {
-  return res.render('watch', { pageTitle: 'Watch' });
+  const id = req.params.id; // const { id } = req.params
+  const video = videos[id];
+  if (video === undefined) {
+    return res.send("Video doesn't exist");
+  }
+  return res.render('watch', {
+    pageTitle: `Watching ${video.title}`,
+    video: video,
+  });
 };
 
 export const editVideo = (req, res) => {
