@@ -29,13 +29,9 @@ export const homeVideo = (req, res) => {
   res.render('home', { pageTitle: 'Home', videos: videos });
 };
 
-export const search = (req, res) => {
-  res.send('Search');
-};
-
 // Video Routers
 export const watchVideo = (req, res) => {
-  const id = req.params.id; // const { id } = req.params
+  const { id } = req.params; //const id = req.params.id;
   const video = videos[id];
   if (video === undefined) {
     return res.send("Video doesn't exist");
@@ -46,15 +42,18 @@ export const watchVideo = (req, res) => {
   });
 };
 
-export const editVideo = (req, res) => {
-  return res.render('edit', { pageTitle: 'Edit' });
+export const getEditVideo = (req, res) => {
+  const id = req.params.id;
+  const video = videos[id];
+  return res.render('edit', {
+    pageTitle: `Editing: ${video.title}`,
+    video: video,
+  });
 };
 
-export const deleteVideo = (req, res) => {
-  console.log(req.params);
-  return res.send('Delete Video');
-};
-
-export const uploadVideo = (req, res) => {
-  res.send('Upload Video');
+export const postEditVideo = (req, res) => {
+  const { id } = req.params;
+  const { title } = req.body;
+  videos[id].title = title;
+  return res.redirect(`/videos/${id}`);
 };
