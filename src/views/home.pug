@@ -2,6 +2,10 @@ extends base.pug
 include mixins/video
 
 block content
+    nav
+        ul 
+            li
+                a(href="/videos/upload") Upload Video
     h2 Welcome! Here you will see the recommendations!
     each video in videos
         +video(video)
