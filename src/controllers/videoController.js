@@ -72,7 +72,7 @@ export const postUploadVideo = (req, res) => {
     comments: 0,
     createdAt: '0 seconds ago',
     views: 0,
-    id: Object.keys(videos).length,
+    id: Object.keys(videos).length, // or videos.length
   };
   videos.push(video);
   return res.redirect('/');
