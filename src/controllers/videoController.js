@@ -1,79 +1,42 @@
-let videos = [
-  {
-    title: 'First Video',
-    rating: 5,
-    comments: 2,
-    createdAt: '2 minuites ago',
-    views: 59,
-    id: 0,
-  },
-  {
-    title: 'Second Video',
-    rating: 5,
-    comments: 2,
-    createdAt: '2 minuites ago',
-    views: 1,
-    id: 1,
-  },
-  {
-    title: 'Third Video',
-    rating: 5,
-    comments: 2,
-    createdAt: '2 minuites ago',
-    views: 59,
-    id: 2,
-  },
-];
+import Video from "../models/Video";
 
-export const homeVideo = (req, res) => {
-  res.render('home', { pageTitle: 'Home', videos: videos });
+export const homeVideo = async (req, res) => {
+  try {
+    const videos = await Video.find({});
+    return res.render("home", { pageTitle: "Home", videos: [] });
+  } catch (error) {
+    return res.send("server-error", { error });
+  }
 };
 
 // Video Routers
 export const watchVideo = (req, res) => {
   const { id } = req.params; //const id = req.params.id;
-  const video = videos[id];
-  if (video === undefined) {
-    return res.send("Video doesn't exist");
-  }
-  return res.render('watch', {
-    pageTitle: `Watching ${video.title}`,
-    video: video,
+  return res.render("watch", {
+    pageTitle: `Watching`,
   });
 };
 
 export const getEditVideo = (req, res) => {
   const id = req.params.id;
-  const video = videos[id];
-  return res.render('edit', {
-    pageTitle: `Editing: ${video.title}`,
-    video: video,
+  return res.render("edit", {
+    pageTitle: `Editing:`,
   });
 };
 
 export const postEditVideo = (req, res) => {
   const { id } = req.params;
   const { title } = req.body;
-  videos[id].title = title;
   return res.redirect(`/videos/${id}`);
 };
 
 export const getUploadVideo = (req, res) => {
-  return res.render('upload', {
-    pageTitle: 'Upload Video',
+  return res.render("upload", {
+    pageTitle: "Upload Video",
   });
 };
 
 export const postUploadVideo = (req, res) => {
   const { title } = req.body;
-  const video = {
-    title: title,
-    rating: 0,
-    comments: 0,
-    createdAt: '0 seconds ago',
-    views: 0,
-    id: Object.keys(videos).length, // or videos.length
-  };
-  videos.push(video);
-  return res.redirect('/');
+  return res.redirect("/");
 };
