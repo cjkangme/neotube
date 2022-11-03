@@ -2,6 +2,11 @@ extends base.pug
 
 block content
     form(method="POST")
+        input(name="url", placeholder="URL" required)
         input(name="title" placeholder="Title" required)
+        input(name="description" placeholder="Description" required)
+        input(name="uploader" placeholder="Uploader" required)
+        input(name="category" placeholder="Category" required)
+        input(name='tags', placeholder="Tags, Seperated by comma.")
         input(type="submit", value="Upload Video")
     

@@ -6,13 +6,13 @@ const videoSchema = new mongoose.Schema({
   description: String,
   uploader: String,
   createdAt: Date,
-  categories: String,
+  category: String,
   tags: [{ type: String }],
   meta: {
     views: Number,
     subscribers: Number,
     likes: Number,
-    Dislikes: Number,
+    dislikes: Number,
   },
 });
 
