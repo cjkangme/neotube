@@ -44,22 +44,17 @@ export const postUploadVideo = async (req, res) => {
       title: title,
       description: description,
       uploader: uploader,
-      createdAt: Date.now(),
       category: category,
       tags: tags
         .replace(/ /g, "")
         .split(",")
         .map((word) => `#${word}`),
-      meta: {
-        views: 0,
-        subscribers: 0,
-        likes: 0,
-        dislikes: 0,
-      },
     });
   } catch (error) {
-    console.log(error);
-    return res.send("Sorry Error Occured");
+    return res.render("upload", {
+      pageTitle: "Upload Video",
+      errorMessage: error._message,
+    });
   }
   return res.redirect("/");
 };
