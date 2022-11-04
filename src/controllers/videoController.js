@@ -10,11 +10,17 @@ export const homeVideo = async (req, res) => {
 };
 
 // Video Routers
-export const watchVideo = (req, res) => {
-  const { id } = req.params; //const id = req.params.id;
-  return res.render("watch", {
-    pageTitle: `Watching`,
-  });
+export const watchVideo = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const video = await Video.findById(id);
+    return res.render("watch", {
+      pageTitle: video.title,
+      video,
+    });
+  } catch (error) {
+    return res.send("server-error", { error });
+  }
 };
 
 export const getEditVideo = (req, res) => {

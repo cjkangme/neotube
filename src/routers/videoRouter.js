@@ -1,4 +1,4 @@
-import express from 'express';
+import express from "express";
 
 import {
   watchVideo,
@@ -6,12 +6,16 @@ import {
   postEditVideo,
   getUploadVideo,
   postUploadVideo,
-} from '../controllers/videoController';
+} from "../controllers/videoController";
 
 const videoRouter = express.Router();
+const IDEXPRESSION = "([0-9a-f]{24})";
 
-videoRouter.get('/:id(\\d+)', watchVideo);
-videoRouter.route('/:id(\\d+)/edit').get(getEditVideo).post(postEditVideo);
-videoRouter.route('/upload').get(getUploadVideo).post(postUploadVideo);
+videoRouter.get(`/:id${IDEXPRESSION}`, watchVideo);
+videoRouter
+  .route(`/:id${IDEXPRESSION}/edit`)
+  .get(getEditVideo)
+  .post(postEditVideo);
+videoRouter.route("/upload").get(getUploadVideo).post(postUploadVideo);
 
 export default videoRouter;
