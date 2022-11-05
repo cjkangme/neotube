@@ -2,11 +2,22 @@ import Video from "../models/Video";
 
 export const homeVideo = async (req, res) => {
   try {
-    const videos = await Video.find({});
+    const videos = await Video.find({}).sort({ createdAt: "desc" });
     return res.render("home", { pageTitle: "Home", videos });
   } catch (error) {
     return res.send("server-error", { error });
   }
+};
+
+export const searchVideo = async (req, res) => {
+  const { keyword } = req.query;
+  let videos = [];
+  if (keyword) {
+    videos = await Video.find({
+      title: { $regex: new RegExp(keyword, "i") },
+    });
+  }
+  return res.render("search", { pageTitle: "Search Video", videos });
 };
 
 // Video Routers
