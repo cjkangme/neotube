@@ -6,6 +6,7 @@ import {
   postEditVideo,
   getUploadVideo,
   postUploadVideo,
+  getDeleteVideo,
 } from "../controllers/videoController";
 
 const videoRouter = express.Router();
@@ -17,5 +18,6 @@ videoRouter
   .get(getEditVideo)
   .post(postEditVideo);
 videoRouter.route("/upload").get(getUploadVideo).post(postUploadVideo);
+videoRouter.get(`/:id${IDEXPRESSION}/delete`, getDeleteVideo);
 
 export default videoRouter;

@@ -4,4 +4,8 @@ block content
     div
         p #{video.description}
         small #{video.createdAt}
-    a(href=`${video.id}/edit`) Edit Video →
+    ul 
+        li
+            a(href=`${video.id}/edit`) Edit Video &rarr;
+        li
+            a(href=`${video.id}/delete`) Delete Video  &rarr;
