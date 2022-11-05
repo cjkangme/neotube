@@ -3,7 +3,7 @@ extends base.pug
 block content
     h4 Update Video
     form(method='POST')
-        input(name="url", placeholder="URL" required vlaue=video.url)
+        input(name="url", placeholder="URL" required value=video.url)
         input(name="title" placeholder="Title" required maxlength="50" value=video.title)
         input(name="description" placeholder="Description" required maxlength="300" value=video.description)
         input(name="uploader" placeholder="Uploader" required value=video.uploader)

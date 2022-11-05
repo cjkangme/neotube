@@ -53,10 +53,7 @@ export const postEditVideo = async (req, res) => {
     description,
     uploader,
     category,
-    tags: tags
-      .replace(/ /g, "")
-      .split(",")
-      .map((word) => (word.startsWith("#") ? word : `#${word}`)),
+    tags: Video.formatTags(tags),
   });
   return res.redirect(`/videos/${id}`);
 };
@@ -76,10 +73,7 @@ export const postUploadVideo = async (req, res) => {
       description: description,
       uploader: uploader,
       category: category,
-      tags: tags
-        .replace(/ /g, "")
-        .split(",")
-        .map((word) => (word.startsWith("#") ? word : `#${word}`)),
+      tags: Video.formatTags(tags),
     });
   } catch (error) {
     return res.render("upload", {
