@@ -1,15 +1,20 @@
 import mongoose, { Schema } from "mongoose";
 
 const videoSchema = new mongoose.Schema({
-  url: { type: String, required: true, trim: true, maxLength: 50 },
+  url: { type: String, required: true },
   title: {
     type: String,
     required: true,
     trim: true,
+    maxLength: 50,
+  },
+  description: {
+    type: String,
+    required: true,
     default: "설명이 없습니다.",
     maxLength: 300,
+    trim: true,
   },
-  description: { type: String, required: true },
   uploader: { type: String, required: true },
   createdAt: { type: Date, required: true, default: Date.now },
   category: { type: String, required: true, default: "기타" },
