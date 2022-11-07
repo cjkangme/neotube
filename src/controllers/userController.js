@@ -4,18 +4,19 @@ export const getJoin = (req, res) => {
   res.render("join", { pageTitle: "Create Account" });
 };
 
+// ToDo : Error Message를 실시간으로 볼 수 있도록 하기
 export const postJoin = async (req, res) => {
   const pageTitle = "Create Account";
   const { email, password, password2, username, location } = req.body;
   if (password !== password2) {
-    return res.render("join", {
+    return res.status(400).render("join", {
       pageTitle,
       errorMessage: "패스워드가 일치하지 않습니다.",
     });
   }
   const exists = await User.exists({ $or: [{ email }, { username }] });
   if (exists) {
-    return res.render("join", {
+    return res.status(400).render("join", {
       pageTitle,
       errorMessage: "This email/username is already taken",
     });
