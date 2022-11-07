@@ -1,13 +1,26 @@
-import express from "express";
-
-const app = express();
+import User from "../models/User";
 
 export const getJoin = (req, res) => {
   res.render("join", { pageTitle: "Create Account" });
 };
 
-export const postJoin = (req, res) => {
-  console.log(req.body);
+export const postJoin = async (req, res) => {
+  const { email, password, username, location } = req.body;
+  try {
+    await User.create({
+      email: email,
+      password: password,
+      username: username,
+      location: location,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.render("join", {
+      pageTitle: "Error",
+      errorMessage: error._message,
+    });
+  }
+  return res.redirect("/login");
 };
 
 export const login = (req, res) => {
