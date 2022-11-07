@@ -1,10 +1,11 @@
 import User from "../models/User";
+import bcrypt from "bcrypt";
 
 export const getJoin = (req, res) => {
   res.render("join", { pageTitle: "Create Account" });
 };
 
-// ToDo : Error Message를 실시간으로 볼 수 있도록 하기
+// ToDo : Error Message를 실시간으로 볼 수 있도록 하기 (새로고침 없이)
 export const postJoin = async (req, res) => {
   const pageTitle = "Create Account";
   const { email, password, password2, username, location } = req.body;
@@ -21,17 +22,46 @@ export const postJoin = async (req, res) => {
       errorMessage: "This email/username is already taken",
     });
   }
-  await User.create({
-    email: email,
-    password: password,
-    username: username,
-    location: location,
-  });
-  return res.redirect("/login");
+  try {
+    await User.create({
+      email: email,
+      password: password,
+      username: username,
+      location: location,
+    });
+    return res.redirect("/login");
+  } catch {
+    return res.status(400).render("join", {
+      pageTitle,
+      errorMessage: error._message,
+    });
+  }
 };
 
-export const login = (req, res) => {
-  res.send("Login");
+// login
+export const getLogin = (req, res) => {
+  res.render("login", { pageTitle: "Login" });
+};
+
+export const postLogin = async (req, res) => {
+  const pageTitle = "Login";
+  const { username, password } = req.body;
+  const user = await User.findOne({ username }); // username: req.body.username, username: username 과 동일
+  if (!user) {
+    return res.status(400).render("login", {
+      pageTitle,
+      errorMessage: "The Username does not exist",
+    });
+  }
+  const match = await bcrypt.compare(password, user.password);
+  if (!match) {
+    return res.status(400).render("login", {
+      pageTitle,
+      errorMessage: "Wrong Password",
+    });
+  }
+  // login 처리 (쿠키, 세션 이용)
+  res.redirect("/");
 };
 
 export const seeUsers = (req, res) => {
