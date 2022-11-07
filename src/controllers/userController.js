@@ -5,21 +5,27 @@ export const getJoin = (req, res) => {
 };
 
 export const postJoin = async (req, res) => {
-  const { email, password, username, location } = req.body;
-  try {
-    await User.create({
-      email: email,
-      password: password,
-      username: username,
-      location: location,
-    });
-  } catch (error) {
-    console.log(error);
+  const pageTitle = "Create Account";
+  const { email, password, password2, username, location } = req.body;
+  if (password !== password2) {
     return res.render("join", {
-      pageTitle: "Error",
-      errorMessage: error._message,
+      pageTitle,
+      errorMessage: "패스워드가 일치하지 않습니다.",
     });
   }
+  const exists = await User.exists({ $or: [{ email }, { username }] });
+  if (exists) {
+    return res.render("join", {
+      pageTitle,
+      errorMessage: "This email/username is already taken",
+    });
+  }
+  await User.create({
+    email: email,
+    password: password,
+    username: username,
+    location: location,
+  });
   return res.redirect("/login");
 };
 
