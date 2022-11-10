@@ -54,6 +54,13 @@ export const postLogin = async (req, res) => {
       errorMessage: "The Username does not exist",
     });
   }
+  if (user.socialId === true) {
+    return res.status(400).render("login", {
+      pageTitle,
+      errorMessage:
+        "This Account is social account. Please login with Social login",
+    });
+  }
   const match = await bcrypt.compare(password, user.password);
   if (!match) {
     return res.status(400).render("login", {
@@ -62,10 +69,11 @@ export const postLogin = async (req, res) => {
     });
   }
   req.session.loggedIn = true;
-  req.session.user = user;
+  req.session.loggedInUser = user;
   res.redirect("/");
 };
 
+// Github OAuth
 export const startGithubLogin = (req, res) => {
   const baseURL = "https://github.com/login/oauth/authorize";
   const config = {
@@ -96,18 +104,44 @@ export const finishGithubLogin = async (req, res) => {
   ).json();
   if ("access_token" in tokenRequest) {
     const { access_token } = tokenRequest;
-    const userRequest = await (
-      await fetch("https://api.github.com/user", {
+    const APIURL = "https://api.github.com";
+    const userData = await (
+      await fetch(`${APIURL}/user`, {
         headers: {
           Authorization: `Bearer ${access_token}`,
         },
       })
     ).json();
-    console.log(userRequest);
+    const userEmails = await (
+      await fetch(`${APIURL}/user/emails`, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      })
+    ).json();
+    const userEmailObj = userEmails.find(
+      (email) => email.primary === true && email.verified === true
+    );
+    if (!userEmailObj) {
+      return res.redirect("/login"); // ToDo : notification error (깃허브 계정에 이메일 없음)
+    }
+    let user = await User.findOne({ email: userEmailObj.email });
+    if (!user) {
+      user = await User.create({
+        email: userEmailObj.email,
+        password: "",
+        username: userData.login,
+        avaterUrl: userData.avatar_url,
+        location: userData.location,
+        socialId: true,
+      });
+    }
+    req.session.loggedIn = true;
+    req.session.user = user;
   } else {
-    return res.redirect("/login");
+    return res.redirect("/login"); // ToDo : notification error (깃허브 인증 실패)
   }
-  return res.end();
+  return res.redirect("/");
 };
 
 export const seeUsers = (req, res) => {
@@ -122,6 +156,12 @@ export const deleteUser = (req, res) => {
   res.send("Delete User");
 };
 
+// logout
 export const logout = (req, res) => {
-  res.send("Log Out");
+  if (!req.session.loggedIn) {
+    return res.redirect("/"); // ToDo 에러메세지
+  } else {
+    req.session.destroy();
+  }
+  return res.redirect("/");
 };
