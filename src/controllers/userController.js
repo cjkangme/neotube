@@ -149,12 +149,38 @@ export const seeUsers = (req, res) => {
 };
 
 // edit User
-export const getEditUser = async (req, res) => {
+export const getEditUser = (req, res) => {
   res.render("edit-profile", { pageTitle: "Edit Profile" });
 };
 
-export const postEditUser = (req, res) => {
-  res.end();
+export const postEditUser = async (req, res) => {
+  const {
+    session: {
+      user: { _id },
+    },
+    body: { username, location },
+  } = req;
+  // let changed = false;
+  // if (username !== req.session.user.username) {
+  //   changed = true;
+  // }
+  // const exist = await User.exists({ username });
+  // if (exist && changed) {
+  //   return res.status(400).render("edit-profile", {
+  //     pageTitle: "Edit Profile",
+  //     errorMessage: "This Username already taken",
+  //   });
+  // }
+  const updatedUser = await User.findByIdAndUpdate(
+    _id,
+    {
+      username,
+      location,
+    },
+    { new: true }
+  );
+  req.session.user = updatedUser;
+  return res.redirect("/users/edit");
 };
 
 // logout
