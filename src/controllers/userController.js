@@ -148,12 +148,13 @@ export const seeUsers = (req, res) => {
   res.send("See User");
 };
 
-export const editUser = (req, res) => {
-  res.send("Edit User");
+// edit User
+export const getEditUser = async (req, res) => {
+  res.render("edit-profile", { pageTitle: "Edit Profile" });
 };
 
-export const deleteUser = (req, res) => {
-  res.send("Delete User");
+export const postEditUser = (req, res) => {
+  res.end();
 };
 
 // logout
