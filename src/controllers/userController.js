@@ -24,14 +24,17 @@ export const postJoin = async (req, res) => {
     });
   }
   try {
+    console.log("isitokay?");
     await User.create({
       email: email,
       password: password,
       username: username,
       location: location,
+      socialId: false,
     });
+    console.log("itisokay");
     return res.redirect("/login");
-  } catch {
+  } catch (error) {
     return res.status(400).render("join", {
       pageTitle,
       errorMessage: error._message,
@@ -61,7 +64,7 @@ export const postLogin = async (req, res) => {
         "This Account is social account. Please login with Social login",
     });
   }
-  const match = await bcrypt.compare(password, user.password);
+  const match = bcrypt.compare(password, user.password);
   if (!match) {
     return res.status(400).render("login", {
       pageTitle,
@@ -181,6 +184,16 @@ export const postEditUser = async (req, res) => {
   );
   req.session.user = updatedUser;
   return res.redirect("/users/edit");
+};
+
+// change password
+export const getChangePassword = (req, res) => {
+  return res.render("change-password", { pageTitle: "Change Password" });
+};
+
+export const postChangePassword = (req, res) => {
+  // send notification
+  return res.redirect("/");
 };
 
 // logout

@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   avaterUrl: { type: String },
   location: { type: String },
-  socialId: { type: Boolean, default: false },
+  socialId: { type: Boolean, required: true },
   createdAt: { type: Date, required: true, default: Date.now },
 });
 
