@@ -20,3 +20,11 @@ export const publicOnlyMiddleware = (req, res, next) => {
     return res.redirect("/");
   }
 };
+
+export const passwordOnlyMiddlware = (req, res, next) => {
+  if (!req.session.loggedInUser.socialId) {
+    next();
+  } else {
+    return res.redirect("back");
+  }
+};

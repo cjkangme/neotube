@@ -27,5 +27,7 @@ html(lang='ko')
                         li
                             a(href="/login") Login
         main
+            if errorMessage
+                span=errorMessage
             block content
     include partials/footer.pug

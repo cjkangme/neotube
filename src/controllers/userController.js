@@ -186,9 +186,28 @@ export const getChangePassword = (req, res) => {
   return res.render("users/change-password", { pageTitle: "Change Password" });
 };
 
-export const postChangePassword = (req, res) => {
+export const postChangePassword = async (req, res) => {
+  const pageTitle = "Change Password";
+  const { currentPassword, newPassword, newPassword2 } = req.body;
+  const user = await User.findById(req.session.loggedInUser._id);
+  const match = await bcrypt.compare(currentPassword, user.password);
+  if (!match) {
+    return res.status(400).render("users/change-password", {
+      pageTitle,
+      errorMessage: "입력한 비밀번호가 틀렸습니다.",
+    });
+  }
+  if (newPassword !== newPassword2) {
+    return res.status(400).render("users/change-password", {
+      pageTitle,
+      errorMessage: "두 비밀번호가 일치하지 않습니다. 정확히 입력해주세요.",
+    });
+  }
+  user.password = newPassword;
+  await user.save();
+  req.session.loggedInUser.password = user.password;
   // send notification
-  return res.redirect("/");
+  return res.redirect("/logout");
 };
 
 // logout

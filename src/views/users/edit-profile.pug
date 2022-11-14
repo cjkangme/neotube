@@ -1,12 +1,11 @@
-extends base
+extends ../base
 
 block content 
-    if errorMessage
-        div=errorMessage
     form(method="POST")
         input(name="email" type="text" value=loggedInUser.email disabled)
         input(name="username" type="text" value=loggedInUser.username placeholder="Username")
         input(name="location" type="text" value=loggedInUser.location placeholder="Location")
         input(type="submit" value="Edit Confirm")
-        hr
-        a(href="change-password") Change Password
+        if !loggedInUser.socialId
+            hr
+            a(href="change-password") Change Password &rarr;
