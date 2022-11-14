@@ -24,7 +24,6 @@ export const postJoin = async (req, res) => {
     });
   }
   try {
-    console.log("isitokay?");
     await User.create({
       email: email,
       password: password,
@@ -32,9 +31,9 @@ export const postJoin = async (req, res) => {
       location: location,
       socialId: false,
     });
-    console.log("itisokay");
     return res.redirect("/login");
   } catch (error) {
+    console.log(error);
     return res.status(400).render("join", {
       pageTitle,
       errorMessage: error._message,
@@ -64,7 +63,7 @@ export const postLogin = async (req, res) => {
         "This Account is social account. Please login with Social login",
     });
   }
-  const match = bcrypt.compare(password, user.password);
+  const match = await bcrypt.compare(password, user.password);
   if (!match) {
     return res.status(400).render("login", {
       pageTitle,
@@ -140,20 +139,16 @@ export const finishGithubLogin = async (req, res) => {
       });
     }
     req.session.loggedIn = true;
-    req.session.user = user;
+    req.session.loggedInUser = user;
   } else {
     return res.redirect("/login"); // ToDo : notification error (깃허브 인증 실패)
   }
   return res.redirect("/");
 };
 
-export const seeUsers = (req, res) => {
-  res.send("See User");
-};
-
 // edit User
 export const getEditUser = (req, res) => {
-  res.render("edit-profile", { pageTitle: "Edit Profile" });
+  return res.render("users/edit-profile", { pageTitle: "Edit Profile" });
 };
 
 export const postEditUser = async (req, res) => {
@@ -169,7 +164,7 @@ export const postEditUser = async (req, res) => {
   }
   const exist = await User.exists({ username });
   if (exist && changed) {
-    return res.status(400).render("edit-profile", {
+    return res.status(400).render("users/edit-profile", {
       pageTitle: "Edit Profile",
       errorMessage: "This Username already taken",
     });
@@ -188,7 +183,7 @@ export const postEditUser = async (req, res) => {
 
 // change password
 export const getChangePassword = (req, res) => {
-  return res.render("change-password", { pageTitle: "Change Password" });
+  return res.render("users/change-password", { pageTitle: "Change Password" });
 };
 
 export const postChangePassword = (req, res) => {

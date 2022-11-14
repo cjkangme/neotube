@@ -20,7 +20,6 @@ userRouter
   .post(postEditUser);
 userRouter.get("/github/start", publicOnlyMiddleware, startGithubLogin);
 userRouter.get("/github/finish", publicOnlyMiddleware, finishGithubLogin);
-userRouter.get("/:id", seeUsers);
 userRouter
   .route("/change-password")
   .all(protectorMiddleware)
