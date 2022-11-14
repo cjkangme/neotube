@@ -13,15 +13,18 @@ import {
   passwordOnlyMiddlware,
   protectorMiddleware,
   publicOnlyMiddleware,
+  uploadFileMiddleware,
 } from "../middlewares";
 
 const userRouter = express.Router();
 
+// Edit Profile
 userRouter
   .route("/edit")
   .all(protectorMiddleware)
   .get(getEditUser)
-  .post(postEditUser);
+  .post(uploadFileMiddleware.single("avatar"), postEditUser);
+
 userRouter.get("/github/start", publicOnlyMiddleware, startGithubLogin);
 userRouter.get("/github/finish", publicOnlyMiddleware, finishGithubLogin);
 userRouter

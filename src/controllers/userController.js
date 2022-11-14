@@ -133,7 +133,7 @@ export const finishGithubLogin = async (req, res) => {
         email: userEmailObj.email,
         password: "",
         username: userData.login,
-        avaterUrl: userData.avatar_url,
+        avatarUrl: userData.avatar_url,
         location: userData.location,
         socialId: true,
       });
@@ -154,12 +154,13 @@ export const getEditUser = (req, res) => {
 export const postEditUser = async (req, res) => {
   const {
     session: {
-      user: { _id },
+      loggedInUser: { _id, avatarUrl },
     },
     body: { username, location },
+    file,
   } = req;
   let changed = false;
-  if (username !== req.session.user.username) {
+  if (username !== req.session.loggedInUser.username) {
     changed = true;
   }
   const exist = await User.exists({ username });
@@ -172,12 +173,13 @@ export const postEditUser = async (req, res) => {
   const updatedUser = await User.findByIdAndUpdate(
     _id,
     {
+      avatarUrl: file ? `/${file.path}` : avatarUrl,
       username,
       location,
     },
     { new: true }
   );
-  req.session.user = updatedUser;
+  req.session.loggedInUser = updatedUser;
   return res.redirect("/users/edit");
 };
 
