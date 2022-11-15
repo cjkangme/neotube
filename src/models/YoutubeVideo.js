@@ -1,6 +1,6 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
 
-const videoSchema = new mongoose.Schema({
+const youtubeVideoSchema = new mongoose.Schema({
   url: { type: String, required: true },
   title: {
     type: String,
@@ -21,18 +21,8 @@ const videoSchema = new mongoose.Schema({
   tags: [{ type: String, trim: true, default: "none" }],
   meta: {
     views: { type: Number, default: 0, required: true },
+    subscribers: { type: Number, default: 0, required: true },
     likes: { type: Number, default: 0, required: true },
     dislikes: { type: Number, default: 0, required: true },
   },
 });
-
-videoSchema.static("formatTags", function (tags) {
-  return (tags = tags
-    .replace(/ /g, "")
-    .split(",")
-    .map((word) => (word.startsWith("#") ? word : `#${word}`)));
-});
-
-const videoModel = mongoose.model("Video", videoSchema);
-
-export default videoModel;

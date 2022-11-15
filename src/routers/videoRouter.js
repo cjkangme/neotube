@@ -8,7 +8,7 @@ import {
   postUploadVideo,
   getDeleteVideo,
 } from "../controllers/videoController";
-import { protectorMiddleware } from "../middlewares";
+import { protectorMiddleware, uploadVideoMiddleware } from "../middlewares";
 
 const videoRouter = express.Router();
 const IDEXPRESSION = "([0-9a-f]{24})";
@@ -23,7 +23,7 @@ videoRouter
   .route("/upload")
   .all(protectorMiddleware)
   .get(getUploadVideo)
-  .post(postUploadVideo);
+  .post(uploadVideoMiddleware.single("video"), postUploadVideo);
 videoRouter.get(
   `/:id${IDEXPRESSION}/delete`,
   protectorMiddleware,
