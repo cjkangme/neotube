@@ -41,6 +41,6 @@ export const uploadFileMiddleware = multer({
 export const uploadVideoMiddleware = multer({
   dest: "uploads/videos",
   limits: {
-    fileSize: 20000000,
+    fileSize: 300000000,
   },
 });

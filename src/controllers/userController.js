@@ -146,6 +146,19 @@ export const finishGithubLogin = async (req, res) => {
   return res.redirect("/");
 };
 
+// show User
+export const userProfile = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id);
+  if (!user) {
+    return res.status(404).render("404");
+  }
+  return res.render("users/profile", {
+    pageTitle: `${user.username}의 프로필`,
+    user,
+  });
+};
+
 // edit User
 export const getEditUser = (req, res) => {
   return res.render("users/edit-profile", { pageTitle: "Edit Profile" });

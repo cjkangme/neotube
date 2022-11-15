@@ -24,6 +24,7 @@ const videoSchema = new mongoose.Schema({
     likes: { type: Number, default: 0, required: true },
     dislikes: { type: Number, default: 0, required: true },
   },
+  owner: { type: mongoose.SchemaTypes.ObjectId, required: true, ref: "User" },
 });
 
 videoSchema.static("formatTags", function (tags) {
