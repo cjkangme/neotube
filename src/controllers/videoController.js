@@ -26,7 +26,6 @@ export const watchVideo = async (req, res) => {
   try {
     const { id } = req.params;
     const video = await Video.findById(id).populate("owner");
-    console.log(video);
     if (video) {
       return res.render("videos/watch", {
         pageTitle: video.title,
@@ -82,8 +81,7 @@ export const postUploadVideo = async (req, res) => {
   const { title, description, uploader, category, tags } = req.body;
   const { file } = req;
   try {
-    console.log(req.file);
-    await Video.create({
+    const newVideo = await Video.create({
       url: `/${file.path}`,
       title: title,
       description: description,
@@ -92,6 +90,9 @@ export const postUploadVideo = async (req, res) => {
       tags: Video.formatTags(tags),
       owner: loggedInUser._id,
     });
+    const user = await User.findById(loggedInUser._id);
+    user.videos.push(newVideo._id);
+    user.save();
   } catch (error) {
     console.log(error);
     return res.status(400).render("videos/upload", {

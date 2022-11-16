@@ -9,6 +9,9 @@ const userSchema = new mongoose.Schema({
   location: { type: String },
   socialId: { type: Boolean, required: true },
   createdAt: { type: Date, required: true, default: Date.now },
+  videos: [
+    { type: mongoose.SchemaTypes.ObjectId, requried: true, ref: "Video" },
+  ],
 });
 
 userSchema.pre("save", async function () {
