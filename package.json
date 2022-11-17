@@ -4,8 +4,8 @@
   "description": "With nomadcoders",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --exec babel-node src/init.js",
-    "assets": "webpack --config webpack.config.js"
+    "dev:server": "nodemon",
+    "dev:assets": "webpack"
   },
   "repository": {
     "type": "git",
@@ -36,6 +36,7 @@
     "babel-loader": "^9.1.0",
     "css-loader": "^6.7.2",
     "install": "^0.13.0",
+    "mini-css-extract-plugin": "^2.7.0",
     "nodemon": "^2.0.20",
     "npm": "^9.1.2",
     "sass": "^1.56.1",
