@@ -34,7 +34,13 @@
     "@babel/node": "^7.20.0",
     "@babel/preset-env": "^7.19.4",
     "babel-loader": "^9.1.0",
+    "css-loader": "^6.7.2",
+    "install": "^0.13.0",
     "nodemon": "^2.0.20",
+    "npm": "^9.1.2",
+    "sass": "^1.56.1",
+    "sass-loader": "^13.2.0",
+    "style-loader": "^3.3.1",
     "webpack": "^5.75.0",
     "webpack-cli": "^4.10.0"
   }
