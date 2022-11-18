@@ -1,35 +1,14 @@
 doctype html
 html(lang='ko')
     head
-        title #{pageTitle} | Wetube
-        link(rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css")
+        title #{pageTitle} | Neotube
         link(rel="stylesheet" href="/assets/css/styles.css")
     body
-        header
-            h1=pageTitle
-            nav
-                ul 
-                    li
-                        a(href="/") Home
-                    li
-                        a(href="/search") Search
-                    if loggedIn
-                        li
-                            a(href="/videos/upload") Upload Video
-                        li
-                            a(href=`/users/${loggedInUser._id}`) #{loggedInUser.username}의 Profile
-                        li
-                            a(href="/users/edit") Edit Profile
-                        li
-                            a(href="/logout") Log Out
-                    else
-                        li
-                            a(href="/join") Join
-                        li
-                            a(href="/login") Login
+        include partials/header
         main
             if errorMessage
                 span=errorMessage
             block content
-    include partials/footer.pug
+        include partials/footer
     script(src="/assets/js/main.js")
+    script(src="https://kit.fontawesome.com/6682c71b2e.js" crossorigin="anonymous") 
