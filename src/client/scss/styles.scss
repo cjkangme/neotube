@@ -2,12 +2,19 @@
 @import "./config/_variable.scss";
 @import "./config/_reset.scss";
 // Components
+@import "./components/footer.scss";
 @import "./components/header.scss";
 @import "./components/nav.scss";
+@import "./components/shared.scss";
+@import "./components/social-login.scss";
 @import "./components/toolbar.scss";
+@import "./components/video.scss";
 
 // Screen
-@import "./screens/base.scss";
+@import "./screens/edit-profile.scss";
+@import "./screens/home.scss";
+@import "./screens/profile.scss";
+@import "./screens/search.scss";
 
 // Defaults
 

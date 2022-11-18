@@ -8,7 +8,7 @@ block content
         input(type="email", name="email", placeholder="E-mail", required) 
         input(type="text", name="location", placeholder="Location")
         input(type="submit" value="Join")
-        hr
-        div 
-            span Already have an account? 
-            a(href="/login") Log in now &rarr;
+        include partials/social-login
+    div.auth-switch
+        span Already have an account? 
+        a(href="/login") Log in now &rarr;

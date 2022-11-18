@@ -2,18 +2,19 @@ extends ../base
 include ../mixins/video
 
 block content
-    img(src=`${user.avatarUrl}` width="100" height="100")
-    div
-        small 이메일
-        span=user.email
-    div
-        small 유저명
-        span=user.username
-    div
-        small 지역
-        span=user.location
-    hr
-    each video in user.videos
-        +video(video)
-    else
-        div 업로드한 동영상이 없습니다.
+    div.profile__data
+        img(src=`${user.avatarUrl}` width="100" height="100").avatar
+        div
+            small 이메일
+            span=user.email
+        div
+            small 유저명
+            span=user.username
+        div
+            small 지역
+            span=user.location
+    div.video-gird
+        each video in user.videos
+            +video(video)
+        else
+            span.empty__message 업로드한 동영상이 없습니다.
