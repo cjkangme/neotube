@@ -1,22 +1,3 @@
 header
     h1=pageTitle
-    nav
-        ul 
-            li
-                a(href="/") Home
-            li
-                a(href="/search") Search
-            if loggedIn
-                li
-                    a(href="/videos/upload") Upload Video
-                li
-                    a(href=`/users/${loggedInUser._id}`) #{loggedInUser.username}의 Profile
-                li
-                    a(href="/users/edit") Edit Profile
-                li
-                    a(href="/logout") Log Out
-            else
-                li
-                    a(href="/join") Join
-                li
-                    a(href="/login") Login
+    
