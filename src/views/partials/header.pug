@@ -1,3 +1,15 @@
 header
-    h1=pageTitle
-    
+    div(class="header__left")
+        button(class="header__btn header__toggle")
+            i(class="fa-solid fa-bars")
+        a(class="header__title" href="/")
+            i(class="fa-brands fa-youtube")
+    form(class="header__center")
+        input(name="search" type="text" placeholder="검색")
+        button(type="submit")
+            i(class="fa-solid fa-magnifying-glass")
+    button(class="header__btn header__user")
+        if loggedIn
+            img(src=`${loggedInUser.avatarUrl}` width="40" height="40")
+        else
+            i(class="fa-solid fa-user")

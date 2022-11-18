@@ -1,0 +1,79 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  height: $header-height;
+  background-color: $orange;
+}
+
+.header__btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  margin: 0 20px;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+  font-size: 1.5em;
+  cursor: pointer;
+  &:hover {
+    background-color: $orange--hover;
+  }
+}
+
+.header__left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header__title {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-right: 10px;
+  color: $red;
+  font-size: 2em;
+}
+
+.header__center {
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  height: 44px;
+  padding: 0 100px;
+  input {
+    width: 800px;
+    height: 44px;
+    padding: 5px 20px;
+    border: none;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-color: $bg-light;
+    color: #fff;
+    &:focus {
+      background-color: $bg;
+      outline: none;
+    }
+  }
+  button {
+    width: 100px;
+    height: 44px;
+    border: none;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background-color: $bg-light;
+    color: #fff;
+    font-size: 1.1em;
+    &:hover {
+      background-color: $bg-light--hover;
+    }
+  }
+}
