@@ -4,12 +4,31 @@ header
             i(class="fa-solid fa-bars")
         a(class="header__title" href="/")
             i(class="fa-brands fa-youtube")
-    form(class="header__center")
+    form(class="header__center" action="/search" method="GET")
         input(name="search" type="text" placeholder="검색")
         button(type="submit")
             i(class="fa-solid fa-magnifying-glass")
-    button(class="header__btn header__user")
-        if loggedIn
-            img(src=`${loggedInUser.avatarUrl}` width="40" height="40")
-        else
-            i(class="fa-solid fa-user")
+    div(class="header__right")
+        button(class="header__btn header__user")
+            if loggedInUser.avatarUrl
+                img(src=`${loggedInUser.avatarUrl}`)
+            else
+                i(class="fa-solid fa-user")
+        div(class="header__profile-list hidden")
+            if loggedIn
+                a(href=`/users/${loggedInUser._id}`)
+                    i(class="fa-solid fa-circle-user")
+                    div 프로필
+                a(href="#") 
+                    i(class="fa-solid fa-gear")
+                    div 설정
+                a(href="/logout") 
+                    i(class="fa-solid fa-right-from-bracket")
+                    div 로그아웃
+            else
+                a(href="/login") 
+                    i(class="fa-solid fa-right-to-bracket")
+                    div 로그인
+                a(href="/join") 
+                    i(class="fa-solid fa-pencil")
+                    div 가입

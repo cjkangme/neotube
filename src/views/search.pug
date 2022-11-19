@@ -2,11 +2,8 @@ extends base
 include mixins/video
 
 block content
-    form(method="GET").search__form
-        input(name="keyword" type="text")
-        input(type="submit" value="Search")
     div.video-grid
         each video in videos
             +video(video)
         else 
-            span.empty__message No videos found
+            span.empty__message 검색 결과가 없습니다.

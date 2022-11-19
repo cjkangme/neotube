@@ -3,7 +3,10 @@ include ../mixins/video
 
 block content
     div.profile__data
-        img(src=`${user.avatarUrl}` width="100" height="100").avatar
+        if user.avaterUrl == ""
+            i(class="fa-solid fa-user")
+        else
+            img(src=`${user.avatarUrl}` width="100" height="100").avatar
         div
             small 이메일
             span=user.email
@@ -13,6 +16,9 @@ block content
         div
             small 지역
             span=user.location
+    if loggedInUser._id == user._id
+        div.profile__edit
+            a(href="/users/edit") 프로필 수정하기 &rarr;
     div.video-gird
         each video in user.videos
             +video(video)

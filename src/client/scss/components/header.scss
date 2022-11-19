@@ -1,3 +1,14 @@
+@keyframes slidedown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 header {
   display: flex;
   justify-content: space-between;
@@ -74,6 +85,47 @@ header {
     font-size: 1.1em;
     &:hover {
       background-color: $bg-light--hover;
+    }
+  }
+}
+
+.header__right {
+  position: relative;
+  button {
+    padding: 0;
+  }
+  img {
+    width: 44px;
+    border-radius: 50%;
+  }
+}
+
+.header__profile-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 48px;
+  right: 20px;
+  z-index: 5;
+  background-color: $bg-light;
+  color: #fff;
+  font-size: 1em;
+  animation: slidedown 1s ease;
+  a {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 200px;
+    height: 56px;
+    padding: 0 20px;
+    &:hover {
+      background-color: $bg-light--hover;
+    }
+    i {
+      margin-right: 40px;
+      font-size: 1.2em;
     }
   }
 }

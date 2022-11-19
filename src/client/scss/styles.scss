@@ -37,3 +37,12 @@ main {
   width: calc(100% - $nav-width);
   padding: 12px;
 }
+
+.toggled {
+  left: 0;
+  width: 100%;
+}
+
+.hidden {
+  display: none !important;
+}
