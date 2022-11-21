@@ -3,9 +3,11 @@ extends ../base.pug
 block content
     div#video-container
         video(src=`${video.url}`)
-        div
-            button#play Play
-            button#mute Mute
+        div.controls-container
+            span#play
+                i.fas.fa-play
+            span#mute
+                i.fas.fa-volume-high
             div
                 span#current-time 00:00
                 span  / 
@@ -14,7 +16,10 @@ block content
             div
                 input(type="range" min="0" step="1" value="0")#timeline
             div
-                button#fullscreen FullScreen
+                span#fullscreen
+                    i.fas.fa-expand
+                span#loop
+                    i.fas.fa-arrows-rotate
     //
         div
             p #{video.description}
