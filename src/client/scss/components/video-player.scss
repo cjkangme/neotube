@@ -1,0 +1,77 @@
+#video-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+  video {
+    width: calc(100% - $nav-width);
+  }
+  .toggled {
+    width: 100%;
+  }
+  i {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    text-align: center;
+    &:hover {
+      background-color: $bg-light--hover;
+    }
+  }
+  .active {
+    color: $orange;
+  }
+  .controls-container {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+    &.hidden {
+      opacity: 0;
+    }
+    align-items: center;
+    border-radius: 10px;
+    position: absolute;
+    bottom: 10px;
+    width: calc(calc(100% - $nav-width) * 0.95);
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr auto;
+    gap: 10px;
+    justify-content: space-between;
+    background-color: $bg;
+    padding: 10px;
+    left: 0;
+    box-sizing: border-box;
+    .controls__play {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      .controls__playBtn {
+        margin: 0px 15px;
+        font-size: 1.2em;
+      }
+      .controls__time {
+        font-size: 12px;
+      }
+    }
+    .controls__volume {
+      display: flex;
+      align-items: center;
+      span {
+        margin-left: 10px;
+        i {
+          font-size: 1.2em;
+        }
+      }
+    }
+    .controls__function {
+      display: flex;
+      align-items: center;
+      span {
+        margin: 0 10px;
+        font-size: 1.2em;
+      }
+    }
+  }
+}

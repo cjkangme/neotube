@@ -120,13 +120,13 @@ const handleMouseLeave = () => {
   showControls(500);
 };
 
-const handleLoop = (event) => {
+const handleLoop = () => {
   if (video.loop) {
     video.loop = false;
-    event.target.classList.remove("active");
+    loopBtn.classList.remove("active");
   } else {
     video.loop = true;
-    event.target.classList.add("active");
+    loopBtn.classList.add("active");
   }
 };
 

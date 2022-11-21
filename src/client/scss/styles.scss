@@ -9,6 +9,7 @@
 @import "./components/shared.scss";
 @import "./components/social-login.scss";
 @import "./components/toolbar.scss";
+@import "./components/video-player.scss";
 @import "./components/video.scss";
 
 // Screen
@@ -32,6 +33,9 @@ body {
 }
 
 main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: relative;
   top: $header-height;
   left: $nav-width;
