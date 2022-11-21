@@ -1,15 +1,20 @@
 extends ../base.pug
 
 block content
-    video(src=`${video.url}` controls)
-    div
-        button#play Play
-        button#mute Mute
+    div#video-container
+        video(src=`${video.url}`)
         div
-            span#current-time 00:00
-            span  / 
-            span#total-time 00:00
-        input(type="range", min="0", max="1" step="0.02" value="0.5")#volume
+            button#play Play
+            button#mute Mute
+            div
+                span#current-time 00:00
+                span  / 
+                span#total-time 00:00
+            input(type="range" min="0" max="1" step="0.02" value="0.5")#volume
+            div
+                input(type="range" min="0" step="1" value="0")#timeline
+            div
+                button#fullscreen FullScreen
     //
         div
             p #{video.description}
