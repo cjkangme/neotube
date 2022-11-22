@@ -17,6 +17,7 @@ let volume = 0.5;
 video.volume = volume;
 
 let timeoutId;
+let watchTime;
 
 // sub function
 
@@ -135,13 +136,21 @@ const handleVideoClick = () => {
 };
 
 const handleKeydown = (event) => {
-  console.log(event);
   if (event.keyCode === 32) {
     event.preventDefault();
     handlePlayClick();
   }
 };
 
+// Video API
+const handleEnded = (event) => {
+  const { id } = video.dataset;
+  fetch(`/api/videos/${id}/view`, {
+    method: "POST",
+  });
+};
+
+// Video Controls
 video.addEventListener("loadedmetadata", handleLoadedMetadata);
 video.addEventListener("timeupdate", handleTimeUpdate);
 timeline.addEventListener("input", handleTimeline);
@@ -164,3 +173,5 @@ loopBtn.addEventListener("click", handleLoop);
 
 video.addEventListener("click", handleVideoClick);
 window.addEventListener("keydown", handleKeydown);
+
+video.addEventListener("ended", handleEnded);
