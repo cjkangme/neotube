@@ -1,6 +1,9 @@
 extends ../base.pug
 
 block content
+    div#preview-container
+        video#preview
+        button#startBtn Start Recording
     form(method="POST" enctype="multipart/form-data")
         label(for="video") Video File
         input(id="video" name="video" type="file" accept="video/*" required) 
@@ -10,4 +13,6 @@ block content
         input(name="category" placeholder="Category" required)
         input(name='tags', placeholder="Tags, Seperated by comma.")
         input(type="submit", value="Upload Video")
-    
+
+block scripts
+    script(src="/assets/js/recorder.js") 
