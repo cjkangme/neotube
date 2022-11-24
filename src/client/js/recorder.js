@@ -16,7 +16,7 @@ const init = async () => {
   try {
     stream = await navigator.mediaDevices.getUserMedia({
       audio: false,
-      video: { width: 480, height: 320 },
+      video: { width: 1280, height: 720 },
     });
     video.srcObject = stream;
     video.play();
@@ -26,6 +26,7 @@ const init = async () => {
 };
 
 const handleStart = async () => {
+  startBtn.classList.remove("hidden");
   startBtn.innerText = "Stop Recording";
   startBtn.removeEventListener("click", handleStart);
   startBtn.removeEventListener("click", handleDownload);
@@ -60,6 +61,10 @@ const createDownload = (url, fileName) => {
 };
 
 const handleDownload = async () => {
+  startBtn.innerText = "Downloading";
+  startBtn.disabled = true;
+  restartBtn.disabled = true;
+
   const INPUTFILE = "recording.webm";
   const OUTPUTFILE = "output.mp4";
   const THUMBNAIL = "thumbnail.jpg";
@@ -106,6 +111,14 @@ const handleDownload = async () => {
   ffmpeg.FS("unlink", OUTPUTFILE);
   ffmpeg.FS("unlink", THUMBNAIL);
   ffmpeg.FS("unlink", INPUTFILE);
+
+  URL.revokeObjectURL(mp4URL);
+  URL.revokeObjectURL(thumbURL);
+  URL.revokeObjectURL(videoFile);
+
+  startBtn.classList.add("hidden");
+  startBtn.disabled = false;
+  restartBtn.disabled = false;
 };
 
 const handleStop = async () => {

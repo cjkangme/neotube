@@ -23,7 +23,13 @@ videoRouter
   .route("/upload")
   .all(protectorMiddleware)
   .get(getUploadVideo)
-  .post(uploadVideoMiddleware.single("video"), postUploadVideo);
+  .post(
+    uploadVideoMiddleware.fields([
+      { name: "video", maxcount: 1 },
+      { name: "thumb", maxcount: 1 },
+    ]),
+    postUploadVideo
+  );
 videoRouter.get(
   `/:id${IDEXPRESSION}/delete`,
   protectorMiddleware,
