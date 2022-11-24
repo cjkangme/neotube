@@ -16,7 +16,7 @@ const init = async () => {
   try {
     stream = await navigator.mediaDevices.getUserMedia({
       audio: false,
-      video: { width: 240, height: 160 },
+      video: { width: 480, height: 320 },
     });
     video.srcObject = stream;
     video.play();
@@ -49,25 +49,63 @@ const handleStart = async () => {
   }, 5000);
 };
 
+// download
+const createDownload = (url, fileName) => {
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = fileName;
+  a.classList.add("hidden");
+  document.body.appendChild(a);
+  a.click();
+};
+
 const handleDownload = async () => {
   const INPUTFILE = "recording.webm";
   const OUTPUTFILE = "output.mp4";
+  const THUMBNAIL = "thumbnail.jpg";
 
   const ffmpeg = createFFmpeg({ log: true });
   await ffmpeg.load();
   ffmpeg.FS("writeFile", INPUTFILE, await fetchFile(videoFile));
   await ffmpeg.run("-i", INPUTFILE, "-r", "30", OUTPUTFILE);
+  await ffmpeg.run(
+    "-i",
+    INPUTFILE,
+    "-ss",
+    "00:00:02",
+    "-frames:v",
+    "1",
+    THUMBNAIL
+  );
 
   const mp4File = ffmpeg.FS("readFile", OUTPUTFILE);
   const mp4Blob = new Blob([mp4File.buffer], { type: "video/mp4" });
   const mp4URL = URL.createObjectURL(mp4Blob);
+  let thumbFile;
+  // 영상길이가 00:00:02초보다 짧을 경우 THUMBNAIL이 저장되지 않아 발생하는 오류 대비
+  try {
+    thumbFile = ffmpeg.FS("readFile", THUMBNAIL);
+  } catch {
+    await ffmpeg.run(
+      "-i",
+      INPUTFILE,
+      "-ss",
+      "00:00:00",
+      "-frames:v",
+      "1",
+      THUMBNAIL
+    );
+    thumbFile = ffmpeg.FS("readFile", THUMBNAIL);
+  }
+  const thumbBlob = new Blob([thumbFile.buffer], { type: "image/jpg" });
+  const thumbURL = URL.createObjectURL(thumbBlob);
 
-  const a = document.createElement("a");
-  a.href = mp4URL;
-  a.download = "MyRecording.mp4";
-  a.click();
-  a.classList.add("hidden");
-  document.body.appendChild(a);
+  createDownload(mp4URL, "MyRecording.mp4");
+  createDownload(thumbURL, "MyThumbnail.jpg");
+
+  ffmpeg.FS("unlink", OUTPUTFILE);
+  ffmpeg.FS("unlink", THUMBNAIL);
+  ffmpeg.FS("unlink", INPUTFILE);
 };
 
 const handleStop = async () => {

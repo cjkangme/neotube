@@ -2,7 +2,7 @@ extends ../base.pug
 
 block content
     div#preview-container
-        video#preview
+        video(width="240", height="160")#preview
         button#startBtn Start Recording
     form(method="POST" enctype="multipart/form-data")
         label(for="video") Video File
