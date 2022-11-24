@@ -1,18 +1,21 @@
 extends ../base.pug
 
 block content
-    div#preview-container
-        video(width="240", height="160")#preview
-        button#startBtn Start Recording
-    form(method="POST" enctype="multipart/form-data")
-        label(for="video") Video File
-        input(id="video" name="video" type="file" accept="video/*" required) 
-        input(name="title" placeholder="Title" required maxlength="50")
-        input(name="description" placeholder="Description" required maxlength="300")
-        input(name="uploader" placeholder="Uploader" required)
-        input(name="category" placeholder="Category" required)
-        input(name='tags', placeholder="Tags, Seperated by comma.")
-        input(type="submit", value="Upload Video")
+    div.form-container
+        div#preview-container
+            video(width="240", height="160")#preview
+            button#startBtn Start Recording
+        form(method="POST" enctype="multipart/form-data")
+            label(for="video") 비디오 파일
+            input(id="video" name="video" type="file" accept="video/*" required) 
+            label(for="thumb") 썸네일
+            input(id="thumb" name="thumb" type="file" accept="image/*" required) 
+            input(name="title" placeholder="Title" required maxlength="50")
+            input(name="description" placeholder="Description" required maxlength="300")
+            input(name="uploader" placeholder="Uploader" required)
+            input(name="category" placeholder="Category" required)
+            input(name='tags', placeholder="Tags, Seperated by comma.")
+            input(type="submit", value="Upload Video")
 
 block scripts
     script(src="/assets/js/recorder.js") 
