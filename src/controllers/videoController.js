@@ -49,6 +49,7 @@ export const getEditVideo = async (req, res) => {
     return res.status(404).render("404", { pageTitle: "Video Not Found" });
   }
   if (String(_id) !== String(video.owner)) {
+    req.flash("error", "권한이 없습니다.");
     return res.status(403).redirect("/");
   }
   return res.render("videos/edit", {
@@ -106,6 +107,7 @@ export const postUploadVideo = async (req, res) => {
       errorMessage: error._message,
     });
   }
+  req.flash("info", "업로드가 완료되었습니다.");
   return res.redirect("/");
 };
 
@@ -120,6 +122,7 @@ export const getDeleteVideo = async (req, res) => {
     return res.tatus(403).redirect("/");
   }
   await Video.findByIdAndDelete(id);
+  req.flash("info", "삭제가 완료되었습니다.");
   return res.redirect("/");
 };
 

@@ -1,3 +1,5 @@
+include mixins/message
+
 doctype html
 html(lang='ko')
     head
@@ -8,6 +10,10 @@ html(lang='ko')
         include partials/header
         main
             include partials/toolbar
+            if messages.error
+                +message("error", messages.error)
+            if messages.info
+                +message("info", messages.info)
             if errorMessage
                 span=errorMessage
             block content

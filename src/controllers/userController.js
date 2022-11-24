@@ -32,6 +32,7 @@ export const postJoin = async (req, res) => {
       location: location,
       socialId: false,
     });
+    req.flash("info", "가입이 완료되었습니다. 환영합니다!");
     return res.redirect("/login");
   } catch (error) {
     console.log(error);
@@ -73,6 +74,7 @@ export const postLogin = async (req, res) => {
   }
   req.session.loggedIn = true;
   req.session.loggedInUser = user;
+  req.flash("info", "로그인 성공");
   res.redirect("/");
 };
 
@@ -142,8 +144,10 @@ export const finishGithubLogin = async (req, res) => {
     req.session.loggedIn = true;
     req.session.loggedInUser = user;
   } else {
+    req.flash("error", "Github 로그인에 실패하였습니다.");
     return res.redirect("/login"); // ToDo : notification error (깃허브 인증 실패)
   }
+  req.flash("info", "로그인 성공");
   return res.redirect("/");
 };
 
@@ -199,11 +203,16 @@ export const postEditUser = async (req, res) => {
     { new: true }
   );
   req.session.loggedInUser = updatedUser;
+  req.flash("info", "수정이 완료되었습니다.");
   return res.redirect("/users/edit");
 };
 
 // change password
 export const getChangePassword = (req, res) => {
+  if (req.session.loggedInUser.socialId === true) {
+    req.flash("error", "소셜 유저는 비밀번호를 설정할 수 없습니다");
+    return res.redirect("/");
+  }
   return res.render("users/change-password", { pageTitle: "Change Password" });
 };
 
@@ -227,7 +236,7 @@ export const postChangePassword = async (req, res) => {
   user.password = newPassword;
   await user.save();
   req.session.loggedInUser.password = user.password;
-  // send notification
+  req.flash("info", "비밀번호가 변경되었습니다. 다시 로그인해주세요");
   return res.redirect("/logout");
 };
 
@@ -238,5 +247,6 @@ export const logout = (req, res) => {
   } else {
     req.session.destroy();
   }
+  req.flash("info", "로그아웃 되었습니다.");
   return res.redirect("/");
 };

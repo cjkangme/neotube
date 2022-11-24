@@ -2,6 +2,7 @@ import express from "express";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import morgan from "morgan";
+import flash from "express-flash";
 import { localsMiddleware } from "./middlewares";
 
 import rootRouter from "./routers/rootRouter";
@@ -36,6 +37,7 @@ app.use((req, res, next) => {
   res.header("Cross-Origin-Opener-Policy", "same-origin");
   next();
 });
+app.use(flash());
 app.use(localsMiddleware);
 app.use("/uploads", express.static("uploads"));
 app.use("/assets", express.static("assets"));
