@@ -126,6 +126,7 @@ export const getDeleteVideo = async (req, res) => {
   return res.redirect("/");
 };
 
+// api
 export const registerView = async (req, res) => {
   const { id } = req.params;
   const video = await Video.findById(id);
@@ -134,5 +135,11 @@ export const registerView = async (req, res) => {
   }
   video.meta.views += 1;
   await video.save();
+  return res.sendStatus(200);
+};
+
+export const createComment = (req, res) => {
+  console.log(req.params);
+  console.log(req.body);
   return res.sendStatus(200);
 };

@@ -4,6 +4,8 @@ import "./components/header";
 
 const flashMessage = document.querySelector(".flash-message");
 
-setTimeout(() => {
-  flashMessage.remove();
-}, 5000);
+if (flashMessage) {
+  setTimeout(() => {
+    flashMessage.remove();
+  }, 5000);
+}
