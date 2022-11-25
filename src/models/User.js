@@ -15,6 +15,7 @@ const userSchema = new mongoose.Schema({
   groups: [
     { type: mongoose.SchemaTypes.ObjectId, requried: true, ref: "Group" },
   ],
+  comments: [{ type: mongoose.SchemaTypes.ObjectId, ref: "Comment" }],
 });
 
 userSchema.pre("save", async function () {
