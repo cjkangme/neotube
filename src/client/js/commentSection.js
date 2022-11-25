@@ -7,7 +7,7 @@ const handleSubmit = async (event) => {
   event.preventDefault();
   const text = textarea.value;
   const videoId = videoContainer.dataset.id;
-  if (text === "") {
+  if (text !== "") {
     fetch(`/api/videos/${videoId}/comment`, {
       method: "POST",
       headers: {
@@ -19,6 +19,7 @@ const handleSubmit = async (event) => {
       }),
     });
   }
+  textarea.value = "";
 };
 
 form.addEventListener("submit", handleSubmit);

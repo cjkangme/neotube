@@ -24,7 +24,7 @@ block content
     div.video__comment
         if loggedIn
             form.video__comment-form
-                textarea(cols="30", rows="10", placeholder="댓글을 작성해주세요").video__comment-textarea
+                textarea(cols="30", rows="10", placeholder="댓글을 작성해주세요", maxlength="299").video__comment-textarea
                 button(type="submit").video__comment-btn Add Comment
         else
             form.video__comment-form
