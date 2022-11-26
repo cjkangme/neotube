@@ -1,0 +1,42 @@
+.video__comment-section {
+  display: flex;
+  flex-direction: column;
+  width: inherit;
+  margin-top: 20px;
+  .video__comments {
+    .video__comment {
+      display: grid;
+      grid-template-columns: 60px auto;
+      grid-template-rows: repeat(3, 1fr);
+      align-items: flex-start;
+      color: #fff;
+      margin-bottom: 10px;
+      padding: 10px;
+      &:first-child {
+        margin-top: 10px;
+      }
+      .comment__avatar {
+        grid-row: 1/4;
+        grid-column: 1/2;
+      }
+      .comment__owner {
+        grid-row: 1/2;
+        grid-column: 2/3;
+      }
+      .comment__created {
+        grid-row: 2/3;
+        grid-column: 2/3;
+        color: $gray;
+        font-size: 0.8em;
+      }
+      .comment__text {
+        grid-row: 3/4;
+        grid-column: 2/3;
+      }
+      img {
+        width: 44px;
+        border-radius: 50%;
+      }
+    }
+  }
+}

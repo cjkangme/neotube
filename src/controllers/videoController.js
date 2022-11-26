@@ -26,7 +26,15 @@ export const searchVideo = async (req, res) => {
 export const watchVideo = async (req, res) => {
   try {
     const { id } = req.params;
-    const video = await Video.findById(id).populate("owner");
+    const video = await Video.findById(id)
+      .populate("owner")
+      .populate({
+        path: "comments",
+        populate: {
+          path: "owner",
+        },
+      });
+    console.log(video);
     if (video) {
       return res.render("videos/watch", {
         pageTitle: video.title,
@@ -155,6 +163,11 @@ export const createComment = async (req, res) => {
       text,
       video: id,
     });
+    video.comments.push(comment._id);
+    video.save();
+    const user = await User.findById(loggedInUser._id);
+    user.comments.push(comment._id);
+    user.save();
   } catch {
     return res.sendStatus(403);
   }

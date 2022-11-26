@@ -113,6 +113,15 @@ header {
   color: #fff;
   font-size: 1em;
   animation: slidedown 1s ease;
+  .header__non-link {
+    width: 200px;
+    padding: 10px 0;
+    text-align: center;
+    .header__username {
+      color: $orange;
+      font-weight: 600;
+    }
+  }
   a {
     display: flex;
     justify-content: flex-start;
