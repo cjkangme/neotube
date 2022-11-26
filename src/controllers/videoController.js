@@ -34,7 +34,6 @@ export const watchVideo = async (req, res) => {
           path: "owner",
         },
       });
-    console.log(video);
     if (video) {
       return res.render("videos/watch", {
         pageTitle: video.title,
@@ -148,6 +147,7 @@ export const registerView = async (req, res) => {
 };
 
 export const createComment = async (req, res) => {
+  let comment;
   const {
     session: { loggedInUser },
     body: { text },
@@ -158,7 +158,7 @@ export const createComment = async (req, res) => {
     return res.sendStatus(404);
   }
   try {
-    const comment = await Comment.create({
+    comment = await Comment.create({
       owner: loggedInUser._id,
       text,
       video: id,
@@ -171,5 +171,17 @@ export const createComment = async (req, res) => {
   } catch {
     return res.sendStatus(403);
   }
-  return res.sendStatus(201);
+  return res.status(201).json({ id: comment._id });
+};
+
+export const deleteComment = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await Comment.findByIdAndRemove(id).populate("video");
+    req.flash("info", "댓글이 삭제되었습니다.");
+    return res.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(403);
+  }
 };

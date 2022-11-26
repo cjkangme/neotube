@@ -1,0 +1,50 @@
+.pop-up__wrapper {
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  position: absolute;
+  top: 0;
+  z-index: 20;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  .pop-up__container {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: calc(50% - 125px);
+    left: calc(50% - 75px);
+    width: 250px;
+    height: 150px;
+    border-radius: 20px;
+    box-shadow: 0 0 3px rgba($color: #000000, $alpha: 0.5);
+    padding: 0 24px;
+    background-color: #fff;
+    color: #000;
+    div {
+      width: 100%;
+    }
+    .pop-up__title {
+      margin: 16px 0;
+      font-size: 1.2em;
+    }
+    .pop-up__text {
+      color: $gray;
+      margin-bottom: 16px;
+    }
+    .pop-up__btn-container {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      button {
+        height: 36px;
+        border-radius: 18px;
+        padding: 0 16px;
+        color: $orange;
+        &:hover {
+          background-color: $orange--hover-light;
+        }
+      }
+    }
+  }
+}

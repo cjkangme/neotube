@@ -6,7 +6,7 @@
   .video__comments {
     .video__comment {
       display: grid;
-      grid-template-columns: 60px auto;
+      grid-template-columns: 60px auto 30px;
       grid-template-rows: repeat(3, 1fr);
       align-items: flex-start;
       color: #fff;
@@ -32,6 +32,21 @@
       .comment__text {
         grid-row: 3/4;
         grid-column: 2/3;
+      }
+      .comment__remove {
+        grid-row: 1/4;
+        grid-column: 3/4;
+        align-self: center;
+        width: 2em;
+        height: 2em;
+        border: none;
+        border-radius: 50%;
+        background-color: $bg;
+        color: $gray;
+        cursor: pointer;
+        &:hover {
+          background-color: $bg-light--hover;
+        }
       }
       img {
         width: 44px;

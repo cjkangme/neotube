@@ -39,6 +39,8 @@ block content
                     div.comment__owner=comment.owner.username
                     div.comment__created=comment.createdAt
                     div.comment__text=comment.text
+                    if comment.owner._id == loggedInUser._id
+                        button.comment__remove.fas.fa-xmark(data-id=comment._id)
 
 block scripts
     script(src="/assets/js/videoPlayer.js")

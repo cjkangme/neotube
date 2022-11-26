@@ -245,7 +245,8 @@ export const logout = (req, res) => {
   if (!req.session.loggedIn) {
     return res.redirect("/"); // ToDo 에러메세지
   } else {
-    req.session.destroy();
+    req.session.loggedIn = false;
+    req.session.loggedInUser = null;
   }
   req.flash("info", "로그아웃 되었습니다.");
   return res.redirect("/");
