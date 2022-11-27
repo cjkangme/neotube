@@ -176,12 +176,22 @@ export const createComment = async (req, res) => {
 
 export const deleteComment = async (req, res) => {
   const { id } = req.params;
+  const comment = await Comment.findById(id)
+    .populate("owner")
+    .populate("video");
+  const owner = comment.owner._id;
+  console.log(owner, req.session.loggedInUser._id);
+  if (req.session.loggedInUser._id !== String(owner)) {
+    req.flash("error", "권한이 없습니다.");
+    return res.status(403).json({ videoId: String(comment.video._id) });
+  }
   try {
     await Comment.findByIdAndRemove(id).populate("video");
     req.flash("info", "댓글이 삭제되었습니다.");
-    return res.sendStatus(200);
+    return res.status(200).json({ videoId: String(comment.video._id) });
   } catch (error) {
     console.log(error);
-    res.sendStatus(403);
+    req.flash("error", "오류가 발생했습니다. 다시 시도해주세요");
+    return res.status(403).json({ videoId: String(comment.video._id) });
   }
 };

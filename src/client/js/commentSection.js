@@ -11,11 +11,15 @@ let id;
 const handleRemove = async () => {
   const popupWrapper = document.querySelector(".pop-up__wrapper");
   popupWrapper.classList.add("hidden");
-  await fetch(`/api/videos/${id}/comment/delete`, {
+  const response = await fetch(`/api/videos/${id}/comment/delete`, {
     method: "POST",
   });
-  const deletedComment = document.getElementById("deletedComment");
-  deletedComment.parentNode.remove();
+  const json = await response.json();
+  if (response.status == 200) {
+    const deletedComment = document.getElementById("deletedComment");
+    deletedComment.parentNode.remove();
+    window.location.href = `/videos/${json.videoId}`;
+  }
 };
 
 const handleRemoveClick = (event) => {
@@ -36,6 +40,7 @@ const addComment = (text, json) => {
   const time = new Date();
   const videoComments = document.querySelector(".video__comments");
 
+  // fake comment 생성
   const newComment = document.createElement("div");
   newComment.className = "video__comment";
 
@@ -69,6 +74,17 @@ const addComment = (text, json) => {
   newComment.appendChild(content);
   newComment.appendChild(button);
   videoComments.prepend(newComment);
+
+  // flash message 생성
+  const main = document.querySelector("main");
+  const message = document.createElement("div");
+  message.className = "flash-message info";
+  message.appendChild(document.createElement("div"));
+
+  const span = document.createElement("span");
+  span.innerText = "댓글이 작성되었습니다.";
+  message.appendChild(span);
+  main.prepend(message);
 };
 
 const handleSubmit = async (event) => {

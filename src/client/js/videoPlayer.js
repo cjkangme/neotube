@@ -12,6 +12,7 @@ const timeline = document.querySelector("#timeline");
 const fullscreenBtn = document.querySelector("#fullscreen");
 const fullscreenIcon = fullscreenBtn.querySelector("i");
 const loopBtn = document.querySelector("#loop");
+const textarea = document.querySelector(".video__comment-textarea");
 
 let volume = 0.5;
 video.volume = volume;
@@ -135,10 +136,19 @@ const handleVideoClick = () => {
   handlePlayClick();
 };
 
+const handleKeyup = (event) => {
+  if (document.activeElement !== textarea) {
+    if (event.keyCode === 32) {
+      handlePlayClick();
+    }
+  }
+};
+
 const handleKeydown = (event) => {
-  if (event.keyCode === 32) {
-    event.preventDefault();
-    handlePlayClick();
+  if (document.activeElement !== textarea) {
+    if (event.keyCode === 32) {
+      event.preventDefault();
+    }
   }
 };
 
@@ -172,6 +182,7 @@ videoContainer.addEventListener("mouseleave", handleMouseLeave);
 loopBtn.addEventListener("click", handleLoop);
 
 video.addEventListener("click", handleVideoClick);
+window.addEventListener("keyup", handleKeyup);
 window.addEventListener("keydown", handleKeydown);
 
 video.addEventListener("ended", handleEnded);

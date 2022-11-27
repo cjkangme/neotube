@@ -64,12 +64,3 @@ main {
 .hidden {
   display: none !important;
 }
-
-@keyframes flash {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
