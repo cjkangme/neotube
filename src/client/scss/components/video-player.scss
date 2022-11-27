@@ -6,6 +6,10 @@
   video {
     width: calc(100% - $nav-width);
   }
+  iframe {
+    width: calc(100% - $nav-width);
+    height: calc($nav-width--calc * 60%);
+  }
   .toggled {
     width: 100%;
   }

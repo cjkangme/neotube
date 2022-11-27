@@ -2,25 +2,28 @@ extends ../base.pug
 
 block content
     div#video-container(data-id=`${video._id}`)
-        video(src=`${video.url}`)
-        div.controls-container
-            div.controls__play
-                span#play.controls__playBtn
-                    i.fas.fa-play
-                div.controls__time
-                    span#current-time 00:00
-                    span  / 
-                    span#total-time 00:00
-            input(type="range" min="0" step="1" value="0")#timeline
-            div.controls__volume
-                input(type="range" min="0" max="1" step="0.02" value="0.5")#volume
-                span#mute
-                    i.fas.fa-volume-high
-            div.controls__function
-                span#loop
-                    i.fas.fa-arrows-rotate
-                span#fullscreen
-                    i.fas.fa-expand
+        if !video.youtubeVideo
+            video(src=`${video.url}`)
+            div.controls-container
+                div.controls__play
+                    span#play.controls__playBtn
+                        i.fas.fa-play
+                    div.controls__time
+                        span#current-time 00:00
+                        span  / 
+                        span#total-time 00:00
+                input(type="range" min="0" step="1" value="0")#timeline
+                div.controls__volume
+                    input(type="range" min="0" max="1" step="0.02" value="0.5")#volume
+                    span#mute
+                        i.fas.fa-volume-high
+                div.controls__function
+                    span#loop
+                        i.fas.fa-arrows-rotate
+                    span#fullscreen
+                        i.fas.fa-expand
+        else
+            iframe(src=`https://www.youtube.com/embed/${video.url}` title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
     div.video__comment-section
         div.video__add-comment
             if loggedIn
@@ -43,5 +46,6 @@ block content
                         button.comment__remove.fas.fa-xmark(data-id=comment._id)
 
 block scripts
-    script(src="/assets/js/videoPlayer.js")
+    if !video.youtubeVideo
+        script(src="/assets/js/videoPlayer.js")
     script(src="/assets/js/commentSection.js")

@@ -1,4 +1,5 @@
 import express from "express";
+import axios from "axios";
 
 import {
   watchVideo,
@@ -7,6 +8,8 @@ import {
   getUploadVideo,
   postUploadVideo,
   getDeleteVideo,
+  postUploadYoutube,
+  getUploadYoutube,
 } from "../controllers/videoController";
 import { protectorMiddleware, uploadVideoMiddleware } from "../middlewares";
 
@@ -30,6 +33,11 @@ videoRouter
     ]),
     postUploadVideo
   );
+videoRouter
+  .route("/upload-youtube")
+  .all(protectorMiddleware)
+  .get(getUploadYoutube)
+  .post(postUploadYoutube);
 videoRouter.get(
   `/:id${IDEXPRESSION}/delete`,
   protectorMiddleware,
