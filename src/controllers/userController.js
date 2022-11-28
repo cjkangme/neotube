@@ -182,6 +182,7 @@ export const postEditUser = async (req, res) => {
     body: { username, location },
     file,
   } = req;
+  const isHeroku = process.env.NODE_ENV === "production";
   let changed = false;
   if (username !== req.session.loggedInUser.username) {
     changed = true;
@@ -196,7 +197,11 @@ export const postEditUser = async (req, res) => {
   const updatedUser = await User.findByIdAndUpdate(
     _id,
     {
-      avatarUrl: file ? `${file.location}` : avatarUrl,
+      avatarUrl: file
+        ? isHeroku
+          ? `${file.location}`
+          : `/${file.path}`
+        : avatarUrl,
       username,
       location,
     },

@@ -2,18 +2,7 @@ import multer from "multer";
 import multerS3 from "multer-s3-v2";
 import aws from "aws-sdk";
 
-const s3 = new aws.S3({
-  credentials: {
-    accessKeyId: process.env.AWS_ID,
-    secretAccessKey: process.env.AWS_SECRET,
-  },
-});
-
-const multerUpload = multerS3({
-  s3: s3,
-  bucket: "neotube-cjkangme",
-  acl: "public-read",
-});
+const isHeroku = process.env.NODE_ENV === "production";
 
 export const crossOriginMiddleware = (req, res, next) => {
   res.header("Cross-Origin-Embedder-Policy", "require-corp");
@@ -25,6 +14,7 @@ export const localsMiddleware = (req, res, next) => {
   res.locals.siteName = "ForYoutube";
   res.locals.loggedIn = Boolean(req.session.loggedIn);
   res.locals.loggedInUser = req.session.loggedInUser || {};
+  res.locals.isHeroku = isHeroku;
   next();
 };
 
@@ -54,17 +44,35 @@ export const passwordOnlyMiddlware = (req, res, next) => {
   }
 };
 
+const s3 = new aws.S3({
+  credentials: {
+    accessKeyId: process.env.AWS_ID,
+    secretAccessKey: process.env.AWS_SECRET,
+  },
+});
+
+const s3VideoUpload = multerS3({
+  s3: s3,
+  bucket: "neotube-cjkangme/videos",
+  acl: "public-read",
+});
+const s3ImageUpload = multerS3({
+  s3: s3,
+  bucket: "neotube-cjkangme/images",
+  acl: "public-read",
+});
+
 export const uploadFileMiddleware = multer({
   dest: "uploads/avatars",
   limits: {
     fileSize: 3000000,
   },
-  storage: multerUpload,
+  storage: isHeroku ? s3ImageUpload : undefined,
 });
 export const uploadVideoMiddleware = multer({
   dest: "uploads/videos",
   limits: {
-    fileSize: 300000000,
+    fileSize: 30000000,
   },
-  storage: multerUpload,
+  storage: isHeroku ? s3VideoUpload : undefined,
 });

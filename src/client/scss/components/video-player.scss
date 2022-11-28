@@ -7,8 +7,8 @@
     width: calc(100% - $nav-width);
   }
   iframe {
-    width: calc(100% - $nav-width);
-    height: calc($nav-width--calc * 60%);
+    width: calc(100% - $nav-width - 100px);
+    height: 750px;
   }
   .toggled {
     width: 100%;

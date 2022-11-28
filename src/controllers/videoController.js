@@ -97,10 +97,12 @@ export const postUploadVideo = async (req, res) => {
     const { loggedInUser } = req.session;
     const { title, description, tags } = req.body;
     const { video, thumb } = req.files;
-
+    const isHeroku = process.env.NODE_ENV === "production";
     const newVideo = await Video.create({
-      url: video[0].location,
-      thumbUrl: thumb[0].location,
+      url: isHeroku ? video[0].location : `/${video[0].path}`,
+      thumbUrl: isHeroku
+        ? thumb[0].location
+        : `/${thumb[0].path.replaceAll("\\", "/")}`,
       title: title,
       description: description,
       uploader: req.session.loggedInUser.username,
@@ -237,16 +239,16 @@ export const postUploadYoutube = async (req, res) => {
 
   // 가져온 정보 바탕으로 video 생성
   try {
-    console.log(video);
     if (!title) {
       title = video.items[0].snippet.title;
     }
     if (!description) {
       description = video.items[0].snippet.description;
     }
+    console.log(video.items[0].snippet);
     const createdVideo = await Video.create({
       url: id,
-      thumbUrl: video.items[0].snippet.thumbnails.standard.url,
+      thumbUrl: video.items[0].snippet.thumbnails.high.url,
       title,
       description,
       uploader: req.session.loggedInUser.username,
