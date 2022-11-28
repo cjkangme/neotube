@@ -102,8 +102,8 @@ export const postUploadVideo = async (req, res) => {
       thumbUrl: `/${thumb[0].path.replaceAll("\\", "/")}`,
       title: title,
       description: description,
-      uploader: uploader,
-      category: category,
+      uploader: req.session.loggedInUser.username,
+      youtubeVideo: false,
       tags: Video.formatTags(tags),
       owner: loggedInUser._id,
     });
@@ -253,7 +253,7 @@ export const postUploadYoutube = async (req, res) => {
       uploader: req.session.loggedInUser.username,
       youtubeVideo: true,
       owner: req.session.loggedInUser._id,
-      tags,
+      tags: Video.formatTags(tags),
     });
     req.flash("info", "성공적으로 업로드 되었습니다.");
     return res.status(200).redirect(`${createdVideo._id}`);
