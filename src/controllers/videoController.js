@@ -93,13 +93,14 @@ export const getUploadVideo = (req, res) => {
 };
 
 export const postUploadVideo = async (req, res) => {
-  const { loggedInUser } = req.session;
-  const { title, description, uploader, category, tags } = req.body;
-  const { video, thumb } = req.files;
   try {
+    const { loggedInUser } = req.session;
+    const { title, description, tags } = req.body;
+    const { video, thumb } = req.files;
+
     const newVideo = await Video.create({
-      url: `/${video[0].path}`,
-      thumbUrl: `/${thumb[0].path.replaceAll("\\", "/")}`,
+      url: video[0].location,
+      thumbUrl: thumb[0].location,
       title: title,
       description: description,
       uploader: req.session.loggedInUser.username,
@@ -112,10 +113,8 @@ export const postUploadVideo = async (req, res) => {
     user.save();
   } catch (error) {
     console.log(error);
-    return res.status(400).render("videos/upload", {
-      pageTitle: "Upload Video",
-      errorMessage: error._message,
-    });
+    req.flash("error", "오류가 발생했습니다. 다시 시도해주세요");
+    return res.status(400).redirect("upload");
   }
   req.flash("info", "업로드가 완료되었습니다.");
   return res.redirect("/");

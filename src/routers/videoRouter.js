@@ -11,7 +11,11 @@ import {
   postUploadYoutube,
   getUploadYoutube,
 } from "../controllers/videoController";
-import { protectorMiddleware, uploadVideoMiddleware } from "../middlewares";
+import {
+  crossOriginMiddleware,
+  protectorMiddleware,
+  uploadVideoMiddleware,
+} from "../middlewares";
 
 const videoRouter = express.Router();
 const IDEXPRESSION = "([0-9a-f]{24})";
@@ -24,7 +28,7 @@ videoRouter
   .post(postEditVideo);
 videoRouter
   .route("/upload")
-  .all(protectorMiddleware)
+  .all(protectorMiddleware, crossOriginMiddleware)
   .get(getUploadVideo)
   .post(
     uploadVideoMiddleware.fields([
