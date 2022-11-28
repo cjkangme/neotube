@@ -4,8 +4,10 @@
   "description": "With nomadcoders",
   "main": "index.js",
   "scripts": {
+    "start": "node build/init.js",
     "dev:server": "nodemon",
-    "dev:assets": "webpack"
+    "dev:assets": "webpack",
+    "build:server": "babel src -d build"
   },
   "repository": {
     "type": "git",
@@ -20,6 +22,7 @@
   "dependencies": {
     "@ffmpeg/core": "^0.11.0",
     "@ffmpeg/ffmpeg": "^0.11.6",
+    "axios": "^1.2.0",
     "bcrypt": "^5.1.0",
     "connect-mongo": "^4.6.0",
     "dotenv": "^16.0.3",
