@@ -21,7 +21,7 @@ app.use(express.json());
 
 app.use(
   session({
-    secret: process.env.DB_URL,
+    secret: process.env.COOKIE_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
