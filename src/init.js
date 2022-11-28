@@ -6,7 +6,7 @@ import "./models/Comment";
 import "./models/Group";
 import app from "./server";
 
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 
 function handleListening() {
   console.log(`Server On (Port : ${PORT})`);
