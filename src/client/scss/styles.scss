@@ -64,3 +64,11 @@ main {
 .hidden {
   display: none !important;
 }
+
+hr {
+  width: 100%;
+  height: 1px;
+  margin: 10px 0;
+  border: none;
+  background-color: $gray;
+}

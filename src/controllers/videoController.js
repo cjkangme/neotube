@@ -1,5 +1,6 @@
 import User from "../models/User";
 import Video from "../models/Video";
+import Group from "../models/Group";
 import Comment from "../models/Comment";
 import fetch from "node-fetch";
 import e from "express";
@@ -7,8 +8,16 @@ import e from "express";
 export const homeVideo = async (req, res) => {
   try {
     const videos = await Video.find({}).sort({ createdAt: "desc" });
-    return res.render("home", { pageTitle: "Home", videos });
+    let user;
+    if (req.session.loggedIn) {
+      user = await User.findById(req.session.loggedInUser._id).populate(
+        "groups"
+      );
+    }
+
+    return res.render("home", { pageTitle: "Home", videos, user });
   } catch (error) {
+    console.log(error);
     return res.send("server-error", { error });
   }
 };

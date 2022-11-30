@@ -13,16 +13,18 @@ nav
                 i(class="fa-solid fa-gear")
             div 설정
     div(class="nav__flexbox-center")
+        hr
     div(class="nav__group-container")
         if loggedIn
-            form(method="POST")
-                input(name="groupName" type="text" placeholder="그룹 이름")
-                button(type="submit") +
-            each group in loggedInUser.groups
-                a(href=`/group/${group._id}`)
-                    div(class="nav__link-container")
-                        i(class="fa-solid fa-folder")
-                    div=group.groupName
+            form(method="POST", action="/api/groups/create").nav__group-form
+                input(name="groupName" type="text" placeholder="그룹 이름" maxlength="10")
+                button(type="submit").nav__group-button +
+            if user.groups
+                each group in user.groups
+                    a(href=`/group/${group._id}`)
+                        div(class="nav__link-container")
+                            i(class="fa-solid fa-folder")
+                        div=group.groupName
             else
                 div 그룹이 없습니다.
         else

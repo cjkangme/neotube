@@ -10,7 +10,7 @@ export const getJoin = (req, res) => {
 // ToDo : Error Message를 실시간으로 볼 수 있도록 하기 (새로고침 없이)
 export const postJoin = async (req, res) => {
   const pageTitle = "Create Account";
-  const { email, password, password2, username, location } = req.body;
+  const { email, password, password2, username } = req.body;
   if (password !== password2) {
     return res.status(400).render("join", {
       pageTitle,
@@ -29,7 +29,6 @@ export const postJoin = async (req, res) => {
       email: email,
       password: password,
       username: username,
-      location: location,
       socialId: false,
     });
     req.flash("info", "가입이 완료되었습니다. 환영합니다!");
@@ -137,7 +136,6 @@ export const finishGithubLogin = async (req, res) => {
         password: "",
         username: userData.login,
         avatarUrl: userData.avatar_url,
-        location: userData.location,
         socialId: true,
       });
     }

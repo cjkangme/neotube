@@ -6,7 +6,6 @@ const userSchema = new mongoose.Schema({
   password: { type: String },
   username: { type: String, required: true, unique: true },
   avatarUrl: { type: String },
-  location: { type: String },
   socialId: { type: Boolean, required: true },
   createdAt: { type: Date, required: true, default: Date.now },
   videos: [
