@@ -1,0 +1,19 @@
+extends base
+include mixins/video
+
+block content
+    div.group__header
+        div.group__icon
+            i(class="fa-solid fa-folder")
+        div.group__group-name #{group.groupName}
+        div.group__video-count #{group.videos.length} 동영상
+        div.group__crud
+            button.group__edit
+                i(class="fas fa-pen-to-square")
+            button.group__remove
+                i(class="fas fa-xmark")
+    div.video-grid
+        each video in group.videos
+            +video(video)
+        else 
+            span.empty__message 동영상이 없습니다.

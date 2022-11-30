@@ -19,9 +19,9 @@ nav
             form(method="POST", action="/api/groups/create").nav__group-form
                 input(name="groupName" type="text" placeholder="그룹 이름" maxlength="10")
                 button(type="submit").nav__group-button +
-            if user.groups
-                each group in user.groups
-                    a(href=`/group/${group._id}`)
+            if loggedInUser.groups
+                each group in loggedInUser.groups
+                    a(href=`/groups/${group._id}`)
                         div(class="nav__link-container")
                             i(class="fa-solid fa-folder")
                         div=group.groupName

@@ -8,14 +8,8 @@ import e from "express";
 export const homeVideo = async (req, res) => {
   try {
     const videos = await Video.find({}).sort({ createdAt: "desc" });
-    let user;
-    if (req.session.loggedIn) {
-      user = await User.findById(req.session.loggedInUser._id).populate(
-        "groups"
-      );
-    }
 
-    return res.render("home", { pageTitle: "Home", videos, user });
+    return res.render("home", { pageTitle: "Home", videos });
   } catch (error) {
     console.log(error);
     return res.send("server-error", { error });

@@ -50,7 +50,7 @@ export const getLogin = (req, res) => {
 export const postLogin = async (req, res) => {
   const pageTitle = "Login";
   const { username, password } = req.body;
-  const user = await User.findOne({ username }); // username: req.body.username, username: username 과 동일
+  const user = await User.findOne({ username }).populate("groups"); // username: req.body.username, username: username 과 동일
   if (!user) {
     return res.status(400).render("login", {
       pageTitle,
