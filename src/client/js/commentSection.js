@@ -47,9 +47,16 @@ const addComment = (text, json) => {
   const avatar = document.createElement("div");
   avatar.className = "comment__avatar";
 
-  const image = document.createElement("img");
-  image.src = avatarUrl.src;
-  avatar.appendChild(image);
+  if (avatarUrl) {
+    const image = document.createElement("img");
+    image.src = avatarUrl.src;
+    avatar.appendChild(image);
+  } else {
+    const icon = document.createElement("i");
+    icon.classList.add("fas");
+    icon.classList.add("fa-user");
+    avatar.appendChild(icon);
+  }
 
   const owner = document.createElement("div");
   owner.innerText = user.innerText;

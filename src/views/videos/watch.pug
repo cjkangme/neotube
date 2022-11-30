@@ -37,9 +37,13 @@ block content
         div.video__comments
             each comment in video.comments.reverse()
                 div.video__comment
-                    div.comment__avatar
-                        img(src=`${comment.owner.avatarUrl}`)
-                    div.comment__owner=comment.owner.username
+                    a(href=`/users/${comment.owner._id}`).comment__avatar
+                        if comment.owner.avaterUrl
+                            img(src=`${comment.owner.avatarUrl}`)
+                        else
+                            div.comment__avatar-icon
+                                i(class="fas fa-user")
+                    a(href=`/users/${comment.owner._id}`).comment__owner=comment.owner.username
                     div.comment__created=comment.createdAt
                     div.comment__text=comment.text
                     if comment.owner._id == loggedInUser._id
@@ -49,7 +53,6 @@ block scripts
     if !video.youtubeVideo
         script(src="/assets/js/videoPlayer.js" type="text/javascript")
     else
-        //- script(src="/assets/js/youtubePlayer.js")
         script.
             const videoContainer = document.getElementById("video-container");
 

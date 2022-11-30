@@ -18,10 +18,23 @@
       .comment__avatar {
         grid-row: 1/4;
         grid-column: 1/2;
+        div {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
+          background-color: $orange;
+        }
+        i {
+          color: #fff;
+        }
       }
       .comment__owner {
         grid-row: 1/2;
         grid-column: 2/3;
+        font-weight: 600;
       }
       .comment__created {
         grid-row: 2/3;
