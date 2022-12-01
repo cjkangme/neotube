@@ -3,7 +3,7 @@ import { showingModal } from "./createModal.js";
 const videoContainer = document.querySelector("#video-container");
 const form = document.querySelector(".video__comment-form");
 const textarea = form.querySelector("textarea");
-const btn = form.querySelector("button");
+const addCommentBtn = form.querySelector("button");
 const removeBtns = document.querySelectorAll(".comment__remove");
 
 let id;
@@ -44,7 +44,8 @@ const addComment = (text, json) => {
   const newComment = document.createElement("div");
   newComment.className = "video__comment";
 
-  const avatar = document.createElement("div");
+  const avatar = document.createElement("a");
+  avatar.href = `/users/${json.id}`;
   avatar.className = "comment__avatar";
 
   if (avatarUrl) {
@@ -52,10 +53,13 @@ const addComment = (text, json) => {
     image.src = avatarUrl.src;
     avatar.appendChild(image);
   } else {
+    const iconContainer = document.createElement("div");
+    iconContainer.className = "comment__avatar-icon";
     const icon = document.createElement("i");
     icon.classList.add("fas");
     icon.classList.add("fa-user");
-    avatar.appendChild(icon);
+    iconContainer.appendChild(icon);
+    avatar.appendChild(iconContainer);
   }
 
   const owner = document.createElement("div");
@@ -92,6 +96,10 @@ const addComment = (text, json) => {
   span.innerText = "댓글이 작성되었습니다.";
   message.appendChild(span);
   main.prepend(message);
+
+  setTimeout(() => {
+    message.remove();
+  }, 5000);
 };
 
 const handleSubmit = async (event) => {
@@ -122,3 +130,19 @@ form.addEventListener("submit", handleSubmit);
 removeBtns.forEach((obj) => {
   obj.addEventListener("click", handleRemoveClick);
 });
+
+// textarea resizing & active button
+const handleTextareaKeypress = () => {
+  textarea.style.height = "1px";
+  textarea.style.height = 3 + textarea.scrollHeight + "px";
+
+  console.log(textarea.value);
+  if (textarea.value == "") {
+    addCommentBtn.disabled = true;
+  } else {
+    addCommentBtn.disabled = false;
+  }
+};
+
+textarea.addEventListener("keydown", handleTextareaKeypress);
+textarea.addEventListener("keyup", handleTextareaKeypress);

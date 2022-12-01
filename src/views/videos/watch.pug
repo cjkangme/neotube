@@ -24,21 +24,45 @@ block content
                         i.fas.fa-expand
         else
             iframe(id="player" type="text/html" src=`https://www.youtube.com/embed/${video.url}?rel=0&enablejsapi=1` frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
+    div.video__information-section
+        div.video__title
+            each tag in video.tags
+                span.video__title-tag #{tag}
+            h1.video__title-header #{video.title}
+            div.video__title-owner
+                a(href=`/users/${video.owner._id}`).video__title-avatar
+                    if video.owner.avatarUrl
+                        img(src=`${video.owner.avatarUrl}`)
+                    else
+                        div.video__avatar-icon
+                            i(class="fas fa-user")
+                a(href=`/users/${video.owner._id}`).video__title-username #{video.owner.username}
+                button.video__title-groupBtn + 그룹에 추가하기
+        div.video__description
+            div.video__description-meta 조회수: #{video.meta.views}회  업로드: #{video.createdAt}
+            p.video__description-text
+                each text in video.description.split(/\n/g)
+                    | #{text}<br>
+            button.video__description-more 더보기
+    - if (String(loggedInUser._id) === String(video.owner._id))
+        div.video__owner-section
+            a(href=`/videos/${video._id}/edit`) 동영상 정보 수정
+            button(href=`/videos/${video._id}/delete`) 동영상 삭제
     div.video__comment-section
         div.video__add-comment
             if loggedIn
                 form.video__comment-form
-                    textarea(cols="30", rows="10", placeholder="댓글을 작성해주세요", maxlength="299").video__comment-textarea
-                    button(type="submit").video__comment-btn Add Comment
+                    textarea(rows="1", placeholder="댓글을 작성해주세요", maxlength="299" spellcheck="false").video__comment-textarea
+                    button(type="submit", disabled).video__comment-btn 작성
             else
                 form.video__comment-form
-                    textarea(cols="30", rows="10", placeholder="로그인 후 이용해주세요.", disabled).video__comment-textarea
-                    button(type="submit", disabled).video__comment-btn Add Comment
+                    textarea(rows="1", placeholder="로그인 후 이용해주세요.", disabled).video__comment-textarea
+                    button(type="submit", disabled).video__comment-btn 작성
         div.video__comments
             each comment in video.comments.reverse()
                 div.video__comment
                     a(href=`/users/${comment.owner._id}`).comment__avatar
-                        if comment.owner.avaterUrl
+                        if comment.owner.avatarUrl
                             img(src=`${comment.owner.avatarUrl}`)
                         else
                             div.comment__avatar-icon

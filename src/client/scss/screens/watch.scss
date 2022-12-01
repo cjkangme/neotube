@@ -1,8 +1,145 @@
+.video__information-section {
+  display: flex;
+  flex-direction: column;
+  width: inherit;
+  .video__title {
+    .video__title-tag {
+      color: $orange;
+      font-size: 0.8em;
+    }
+    .video__title-header {
+      font-size: 1.5em;
+      font-weight: 600;
+    }
+    .video__title-owner {
+      display: flex;
+      height: 44px;
+      margin: 10px 0;
+      position: relative;
+      .video__avatar-icon,
+      img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 44px;
+        height: 44px;
+        margin-right: 20px;
+        border-radius: 50%;
+        background-color: $orange;
+      }
+      .video__title-username {
+        color: $orange;
+        font-size: 1.2em;
+        font-weight: 600;
+      }
+      .video__title-groupBtn {
+        position: absolute;
+        right: 0;
+        width: 150px;
+        height: inherit;
+        background-color: $bg-light;
+        cursor: pointer;
+        &:hover {
+          background-color: $bg-light--hover;
+        }
+      }
+    }
+  }
+  .video__description {
+    position: relative;
+    overflow: hidden;
+    height: 100px;
+    border-radius: 20px;
+    padding: 15px;
+    background-color: $bg-light;
+    button {
+      display: block;
+      position: absolute;
+      z-index: 5;
+      bottom: 10px;
+      right: 20px;
+      border-radius: 0%;
+      background-color: $bg-light;
+      box-shadow: 0px 0px 10px $bg-light;
+      color: #fff;
+      font-size: 1.2em;
+      font-weight: 600;
+      cursor: pointer;
+      &:hover {
+        background-color: $bg-light;
+        color: $orange;
+      }
+    }
+  }
+}
+
+.video__owner-section {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: inherit;
+  height: 40px;
+  margin: 20px 0;
+  a,
+  button {
+    display: flex;
+    align-items: center;
+    height: 36px;
+    margin-left: 10px;
+    border-radius: 15px;
+    padding: 10px;
+    background-color: $bg-light;
+    color: $orange;
+    font-size: 0.8em;
+    font-weight: 600;
+    cursor: pointer;
+    &:hover {
+      background-color: $bg-light--hover;
+    }
+  }
+}
+
 .video__comment-section {
   display: flex;
   flex-direction: column;
   width: inherit;
   margin-top: 20px;
+  .video__add-comment {
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      padding: 0 10px;
+    }
+    textarea {
+      overflow: hidden;
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid $gray;
+      padding: 5px;
+      background-color: $bg;
+      color: #fff;
+      outline: none;
+      resize: none;
+      &:focus {
+        border-bottom: 2px solid $orange;
+      }
+    }
+    button {
+      width: 60px;
+      height: 36px;
+      margin-top: 10px;
+      background-color: $orange;
+      text-align: center;
+      line-height: 36px;
+      cursor: pointer;
+      &:disabled {
+        background-color: $bg-light;
+        color: $gray;
+        cursor: default;
+      }
+    }
+  }
   .video__comments {
     .video__comment {
       display: grid;
@@ -15,7 +152,8 @@
       &:first-child {
         margin-top: 10px;
       }
-      .comment__avatar {
+      .comment__avatar,
+      .video__title-avatar {
         grid-row: 1/4;
         grid-column: 1/2;
         div {

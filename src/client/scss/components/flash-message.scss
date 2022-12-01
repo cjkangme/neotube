@@ -13,7 +13,7 @@
   background-color: #fff;
   color: $message;
   text-align: left;
-  animation: flash 2s 3s ease;
+  animation: flash 2s 3s ease !important;
   span {
     margin-left: 20px;
     padding-right: 30px;
