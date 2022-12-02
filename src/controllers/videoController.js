@@ -127,13 +127,15 @@ export const postUploadVideo = async (req, res) => {
 
 export const getDeleteVideo = async (req, res) => {
   const { id } = req.params;
-  const { loggedInUser: _id } = req.session;
+  const { _id } = req.session.loggedInUser;
+  console.log(_id);
   const video = await Video.findById(id);
   if (!video) {
     return res.status(404).render("404", { pageTitle: "Video Not Found" });
   }
-  if (_id !== video.owner) {
-    return res.tatus(403).redirect("/");
+  if (String(_id) !== String(video.owner)) {
+    req.flash("error", "권한이 없습니다.");
+    return res.status(403).redirect("/");
   }
   await Video.findByIdAndDelete(id);
   req.flash("info", "삭제가 완료되었습니다.");

@@ -1,0 +1,4 @@
+mixin group(group)
+    div.group-container
+        input(type="checkbox" id=`${group._id}` name=`${group._id}`).group-checkbox
+        label(for=`${group._id}`).group-label #{group.groupName}

@@ -1,6 +1,12 @@
+include ../mixins/group-popup
+
 div.pop-up__wrapper.hidden
     div.pop-up__container
         div.pop-up__title
         div.pop-up__text
+        if loggedIn
+            form.pop-up__group.hidden
+                each group in loggedInUser.groups
+                    +group(group)
         div.pop-up__btn-container
             button.pop-up__cancle

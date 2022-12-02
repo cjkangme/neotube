@@ -129,7 +129,9 @@ export const finishGithubLogin = async (req, res) => {
     if (!userEmailObj) {
       return res.redirect("/login"); // ToDo : notification error (깃허브 계정에 이메일 없음)
     }
-    let user = await User.findOne({ email: userEmailObj.email });
+    let user = await User.findOne({ email: userEmailObj.email }).populate(
+      "groups"
+    );
     if (!user) {
       user = await User.create({
         email: userEmailObj.email,
@@ -204,7 +206,7 @@ export const postEditUser = async (req, res) => {
       location,
     },
     { new: true }
-  );
+  ).populate("groups");
   req.session.loggedInUser = updatedUser;
   req.flash("info", "수정이 완료되었습니다.");
   return res.redirect("/users/edit");

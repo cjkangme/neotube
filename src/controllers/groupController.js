@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Group from "../models/Group";
 import User from "../models/User";
 
@@ -32,7 +33,47 @@ export const createGroup = async (req, res) => {
   }
 };
 
+// scan if video already exists in groups
+export const scanVideo = async (req, res) => {
+  const { groupId, videoId } = req.body;
+  const group = await Group.findById(groupId);
+  const exists = group.videos.map(String).includes(videoId);
+  return res.status(200).json({ exists });
+};
+
 // add video to group
+export const addVideo = async (req, res) => {
+  const { groupId, videoId } = req.body;
+  try {
+    const group = await Group.findById(groupId);
+    const exists = group.videos.map(String).includes(videoId);
+    if (exists) {
+      return res.sendStatus(200);
+    }
+    group.videos.push(videoId);
+    await group.save();
+    return res.sendStatus(201);
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "오류가 발생했습니다. 새로고침 후 다시 시도해주세요");
+    return res.status(403).redirect(`/videos/${videoId}`);
+  }
+};
+
+// delete video from group
+export const deleteVideo = async (req, res) => {
+  const { groupId, videoId } = req.body;
+  try {
+    const group = await Group.findById(groupId).populate("videos");
+    group.videos.pull({ _id: mongoose.Types.ObjectId(videoId) });
+    await group.save();
+    return res.sendStatus(201);
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "오류가 발생했습니다. 새로고침 후 다시 시도해주세요");
+    return res.status(403).redirect(`/videos/${videoId}`);
+  }
+};
 
 // show group video list
 export const getGroup = async (req, res) => {
