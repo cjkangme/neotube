@@ -20,7 +20,9 @@ export const createGroup = async (req, res) => {
       owner: req.session.loggedInUser._id,
     });
     user.groups.push(newGroup._id);
-    user.save();
+    await user.save();
+    const newUser = await User.findById(userId).populate("groups");
+    req.session.loggedInUser = newUser;
     req.flash("info", "그룹이 생성되었습니다.");
     return res.status(200).redirect("/");
   } catch (error) {
@@ -29,6 +31,8 @@ export const createGroup = async (req, res) => {
     return res.status(403).redirect("/");
   }
 };
+
+// add video to group
 
 // show group video list
 export const getGroup = async (req, res) => {
