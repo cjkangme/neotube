@@ -1,8 +1,54 @@
 .toolbar {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
   height: 48px;
+  margin-bottom: 30px;
+  padding: 0 10px;
   position: sticky;
   top: $header-height;
   z-index: 4;
   top: 0;
+  background-color: #000;
+  .toolbar__links {
+    display: flex;
+    height: inherit;
+    a {
+      display: flex;
+      align-items: center;
+      height: inherit;
+      margin-right: 20px;
+      border-bottom: 2px solid $orange;
+      color: $gray;
+      &:hover {
+        color: $orange;
+      }
+    }
+  }
+
+  .toolbar__buttons {
+    display: flex;
+    align-items: center;
+    height: inherit;
+    &:hover {
+      background-color: $bg-light;
+    }
+    button,
+    a {
+      display: flex;
+      align-items: center;
+      height: 24px;
+      margin: 0 10px;
+      padding: 0 5px;
+      border-radius: 50%;
+      cursor: pointer;
+      &:hover {
+        background-color: $bg-light--hover;
+      }
+      i {
+        color: $gray;
+      }
+    }
+  }
 }
