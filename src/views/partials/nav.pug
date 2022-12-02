@@ -24,7 +24,7 @@ nav
                     a(href=`/groups/${group._id}`)
                         div(class="nav__link-container")
                             i(class="fa-solid fa-folder")
-                        div=group.groupName
+                        div(class=`id-${group._id}`) #{group.groupName}
             else
                 div 그룹이 없습니다.
         else

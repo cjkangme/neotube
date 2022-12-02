@@ -16,6 +16,12 @@
     font-size: 1.5em;
     font-weight: 600;
   }
+  .group__group-name--edit {
+    width: 300px;
+    height: 32px;
+    border: 1px solid $gray;
+    outline: none;
+  }
   .group__video-count {
     grid-row: 2 / 3;
     grid-column: 2 / 3;

@@ -9,6 +9,7 @@ import {
   createGroup,
   deleteGroup,
   deleteVideo,
+  editGroup,
   scanVideo,
 } from "../controllers/groupController";
 
@@ -21,6 +22,7 @@ apiRouter.post(`/videos/:id${IDEXPRESSION}/comment`, createComment);
 apiRouter.post(`/videos/:id${IDEXPRESSION}/comment/delete`, deleteComment);
 apiRouter.post(`/groups/create`, createGroup);
 apiRouter.get(`/groups/:id${IDEXPRESSION}/delete`, deleteGroup);
+apiRouter.post(`/groups/:id${IDEXPRESSION}/edit`, editGroup);
 apiRouter.post(`/groups/scan`, scanVideo);
 apiRouter.post(`/groups/addvideo`, addVideo);
 apiRouter.post(`/groups/deletevideo`, deleteVideo);

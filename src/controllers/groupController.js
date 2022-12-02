@@ -57,6 +57,23 @@ export const deleteGroup = async (req, res) => {
   }
 };
 
+// edit groupName
+export const editGroup = async (req, res) => {
+  const { value, groupId } = req.body;
+  const userId = req.session.loggedInUser._id;
+  const group = await Group.findById(groupId);
+  if (!group) {
+    return res.sendStatus(404);
+  }
+  if (userId !== String(group.owner)) {
+    return res.sendStatus(403);
+  }
+  const newGroup = await Group.findByIdAndUpdate(groupId, { groupName: value });
+  const newUser = await User.findById(userId).populate("groups");
+  req.session.loggedInUser = newUser;
+  return res.sendStatus(200);
+};
+
 // scan if video already exists in groups
 export const scanVideo = async (req, res) => {
   const { groupId, videoId } = req.body;
