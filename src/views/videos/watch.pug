@@ -36,7 +36,10 @@ block content
                     else
                         div.video__avatar-icon
                             i(class="fas fa-user")
-                a(href=`/users/${video.owner._id}`).video__title-username #{video.owner.username}
+                if video.owner._id
+                    a(href=`/users/${video.owner._id}`).video__title-username #{video.owner.username}
+                else
+                    span.video__title-username 삭제된 사용자
                 button.video__title-groupBtn + 그룹에 추가하기
         div.video__description
             div.video__description-meta 조회수: #{video.meta.views}회  업로드: #{video.createdAt}

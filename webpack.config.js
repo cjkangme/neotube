@@ -13,6 +13,7 @@ module.exports = {
     youtubePlayer: BASE_JS + "youtubePlayer.js",
     createModal: BASE_JS + "createModal.js",
     videoFunction: BASE_JS + "videoFunction.js",
+    groupScreen: BASE_JS + "groupScreen.js",
   },
   plugins: [
     new MiniCssExtractPlugin({

@@ -25,11 +25,20 @@
     grid-row: 1 / 3;
     grid-column: 3 / 4;
     justify-self: flex-end;
-    button {
+    button,
+    a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       width: 50px;
       height: 50px;
+      margin-right: 10px;
+      border-radius: 20px;
       font-size: 1.5em;
       cursor: pointer;
+      &:hover {
+        background-color: $bg-light--hover;
+      }
     }
   }
 }

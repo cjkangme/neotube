@@ -188,7 +188,6 @@ export const deleteComment = async (req, res) => {
     .populate("owner")
     .populate("video");
   const owner = comment.owner._id;
-  console.log(owner, req.session.loggedInUser._id);
   if (req.session.loggedInUser._id !== String(owner)) {
     req.flash("error", "권한이 없습니다.");
     return res.status(403).json({ videoId: String(comment.video._id) });
@@ -261,6 +260,10 @@ export const postUploadYoutube = async (req, res) => {
       owner: req.session.loggedInUser._id,
       tags: Video.formatTags(tags),
     });
+    const user = await User.findById(req.session.loggedInUser._id);
+    user.videos.push(createdVideo._id);
+    await user.save();
+    req.session.loggedInUser = user;
     req.flash("info", "성공적으로 업로드 되었습니다.");
     return res.status(200).redirect(`${createdVideo._id}`);
   } catch (error) {

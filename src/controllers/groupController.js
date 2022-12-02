@@ -33,6 +33,30 @@ export const createGroup = async (req, res) => {
   }
 };
 
+// delete group
+export const deleteGroup = async (req, res) => {
+  const { id } = req.params;
+  const userId = req.session.loggedInUser._id;
+  const group = await Group.findById(id);
+  if (String(userId) !== String(group.owner)) {
+    req.flash("error", "권한이 없습니다.");
+    return res.status(401).redirect(`/`);
+  }
+  try {
+    const user = await User.findById(userId).populate("groups");
+    user.groups.pull({ _id: mongoose.Types.ObjectId(id) });
+    await user.save();
+    req.session.loggedInUser = user;
+    await Group.findByIdAndDelete(id);
+    req.flash("info", "그룹이 삭제되었습니다.");
+    return res.status(200).redirect("/");
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "오류가 발생했습니다. 다시 시도해주세요.");
+    return res.status(403).redirect("/");
+  }
+};
+
 // scan if video already exists in groups
 export const scanVideo = async (req, res) => {
   const { groupId, videoId } = req.body;
