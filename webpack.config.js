@@ -14,6 +14,7 @@ module.exports = {
     createModal: BASE_JS + "createModal.js",
     videoFunction: BASE_JS + "videoFunction.js",
     groupScreen: BASE_JS + "groupScreen.js",
+    timeFormat: BASE_JS + "timeFormat.js",
   },
   plugins: [
     new MiniCssExtractPlugin({

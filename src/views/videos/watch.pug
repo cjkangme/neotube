@@ -42,7 +42,9 @@ block content
                     span.video__title-username 삭제된 사용자
                 button.video__title-groupBtn + 그룹에 추가하기
         div.video__description
-            div.video__description-meta 조회수: #{video.meta.views}회  업로드: #{video.createdAt}
+            div.video__description-meta 
+                span 조회수: #{video.meta.views}회 · 
+                span(data-date=`${video.createdAt}`).video__description-createdAt 업로드: #{video.createdAt}
             p.video__description-text
                 each text in video.description.split(/\n/g)
                     | #{text}<br>
