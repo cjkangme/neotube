@@ -7,7 +7,9 @@ import fetch from "node-fetch";
 // Root Routers
 export const homeVideo = async (req, res) => {
   try {
-    const videos = await Video.find({}).sort({ createdAt: "desc" });
+    const videos = await Video.find({})
+      .sort({ createdAt: "desc" })
+      .populate("owner");
 
     return res.render("home", { pageTitle: "Home", videos });
   } catch (error) {
