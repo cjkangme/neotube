@@ -1,3 +1,5 @@
+const localStorage = window.localStorage;
+
 const video = document.querySelector("video");
 const controls = document.querySelector(".controls-container");
 const videoContainer = document.querySelector("#video-container");
@@ -36,6 +38,18 @@ const handleLoadedMetadata = () => {
   const { duration } = video;
   totalTimeSpan.innerText = formatTime(duration);
   timeline.max = Math.floor(duration);
+
+  const mute = Boolean(localStorage.getItem("mute"));
+  if (mute) {
+    video.muted = true;
+    muteIcon.className = "fas fa-volume-xmark";
+  }
+
+  const loop = Boolean(localStorage.getItem("loop"));
+  if (loop) {
+    video.loop = true;
+    loopBtn.classList.add("active");
+  }
 };
 
 const handleTimeUpdate = () => {

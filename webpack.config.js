@@ -16,6 +16,7 @@ module.exports = {
     groupScreen: BASE_JS + "groupScreen.js",
     timeFormat: BASE_JS + "timeFormat.js",
     toolbar: BASE_JS + "toolbar.js",
+    setting: BASE_JS + "setting.js",
   },
   plugins: [
     new MiniCssExtractPlugin({

@@ -83,6 +83,15 @@ block scripts
         script(src="/assets/js/videoPlayer.js" type="text/javascript")
     else
         script.
+            const localStorage = window.localStorage;
+            let mute = 0;
+            let loop = 0;
+            if (Boolean(localStorage.getItem("mute"))) {
+                mute = 1;
+            }
+            if (Boolean(localStorage.getItem("loop"))) {
+                loop = 1;
+            }
             const videoContainer = document.getElementById("video-container");
 
             var tag = document.createElement("script");
@@ -94,6 +103,8 @@ block scripts
             let player;
             function onYouTubeIframeAPIReady() {
             player = new YT.Player("player", {
+                mute: mute,
+                loop: loop,
                 rel: 0,
                 events: {
                 onReady: onPlayerReady,
@@ -104,7 +115,6 @@ block scripts
 
             // 1) 동영상이 준비되면 발생하는 함수
             function onPlayerReady(event) {
-            console.log("안되는데");
             }
 
             // 2) 플레이어의 상태에 따른 이벤트

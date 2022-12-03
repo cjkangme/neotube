@@ -3,8 +3,8 @@ import Video from "../models/Video";
 import Group from "../models/Group";
 import Comment from "../models/Comment";
 import fetch from "node-fetch";
-import e from "express";
 
+// Root Routers
 export const homeVideo = async (req, res) => {
   try {
     const videos = await Video.find({}).sort({ createdAt: "desc" });
@@ -25,6 +25,10 @@ export const searchVideo = async (req, res) => {
     });
   }
   return res.render("search", { pageTitle: "Search Video", videos });
+};
+
+export const settingVideo = (req, res) => {
+  return res.render("setting", { pageTitle: "Settings" });
 };
 
 // Video Routers

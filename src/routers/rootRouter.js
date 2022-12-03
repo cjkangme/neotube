@@ -7,7 +7,11 @@ import {
   postLogin,
   logout,
 } from "../controllers/userController";
-import { homeVideo, searchVideo } from "../controllers/videoController";
+import {
+  homeVideo,
+  searchVideo,
+  settingVideo,
+} from "../controllers/videoController";
 import { protectorMiddleware, publicOnlyMiddleware } from "../middlewares";
 
 const rootRouter = express.Router();
@@ -21,5 +25,6 @@ rootRouter
 rootRouter.route("/join").all(publicOnlyMiddleware).get(getJoin).post(postJoin);
 rootRouter.get("/search", searchVideo);
 rootRouter.get("/logout", protectorMiddleware, logout);
+rootRouter.get("/setting", settingVideo);
 
 export default rootRouter;

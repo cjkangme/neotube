@@ -1,0 +1,18 @@
+extends base
+
+block content
+    div.setting__video-player.setting__container 
+        div.setting__title 동영상 기본값 설정(유튜브 미지원)
+        div.row.setting__mute
+            span.setting__text 음소거를 기본값으로 설정합니다.
+            label.switch
+                input(type="checkbox" data-key="mute").setting-checkbox
+                span.slider
+        div.row.setting__loop
+            span.setting__text 루프를 기본값으로 설정합니다.
+            label.switch
+                input(type="checkbox" data-key="loop").setting-checkbox
+                span.slider
+
+block scripts
+    script(src="/assets/js/setting.js") 
