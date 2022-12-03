@@ -36,8 +36,11 @@
     }
     button,
     a {
+      position: relative;
       display: flex;
+      justify-content: center;
       align-items: center;
+      width: 24px;
       height: 24px;
       margin: 0 10px;
       padding: 0 5px;
@@ -48,6 +51,29 @@
       }
       i {
         color: $gray;
+      }
+    }
+  }
+
+  .dropdown {
+    position: absolute;
+    top: 30px;
+    left: -180px;
+    width: 200px;
+    box-shadow: 0 5px 5px -3px #0003, 0 8px 10px 1px #00000024,
+      0 3px 14px 2px #0000001f;
+    div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 30px;
+      padding: 20px 10px;
+      background-color: $bg-light;
+      cursor: pointer;
+      &:hover {
+        background-color: $bg-light--hover;
+        color: $orange;
       }
     }
   }

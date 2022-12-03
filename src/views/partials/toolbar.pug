@@ -3,5 +3,17 @@ div(class="toolbar")
         a(href="/videos/upload") 비디오 업로드
         a(href="/videos/upload-youtube") 유튜브에서 업로드
     div.toolbar__buttons
+        button.toolbar__filter-btn
+            i.fas.fa-filter
+            div.filter-dropdown.dropdown.hidden
+                div(data-option="all") 전체 보기
+                div(data-option="video") 비디오만
+                div(data-option="youtube") 유튜브만
+        button.toolbar__sort-btn
+            i.fas.fa-sort
+            div.sort-dropdown.dropdown.hidden
+                div 최신순
+                div 오래된순
+                div 조회순
         button
             i.fas.fa-gear

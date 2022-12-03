@@ -15,6 +15,7 @@ module.exports = {
     videoFunction: BASE_JS + "videoFunction.js",
     groupScreen: BASE_JS + "groupScreen.js",
     timeFormat: BASE_JS + "timeFormat.js",
+    toolbar: BASE_JS + "toolbar.js",
   },
   plugins: [
     new MiniCssExtractPlugin({

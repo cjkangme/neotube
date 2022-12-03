@@ -20,6 +20,8 @@ const IDEXPRESSION = "([0-9a-f]{24})";
 apiRouter.post(`/videos/:id${IDEXPRESSION}/view`, registerView);
 apiRouter.post(`/videos/:id${IDEXPRESSION}/comment`, createComment);
 apiRouter.post(`/videos/:id${IDEXPRESSION}/comment/delete`, deleteComment);
+apiRouter.get(`/videos/filter`);
+apiRouter.get(`/videos/sort`);
 apiRouter.post(`/groups/create`, createGroup);
 apiRouter.get(`/groups/:id${IDEXPRESSION}/delete`, deleteGroup);
 apiRouter.post(`/groups/:id${IDEXPRESSION}/edit`, editGroup);
