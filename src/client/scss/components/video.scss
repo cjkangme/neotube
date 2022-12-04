@@ -38,10 +38,7 @@
       overflow: hidden;
       grid-column: 2 / 3;
       grid-row: 2 / 3;
-      color: $orange;
-      &:hover {
-        color: #fff;
-      }
+      color: $blue;
     }
     .video-mixin__meta {
       grid-column: 2 / 4;
