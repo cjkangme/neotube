@@ -5,7 +5,6 @@ const checkboxes = document.querySelectorAll(".setting-checkbox");
 
 const storage = (key, item) => {
   const value = localStorage.getItem(key);
-  console.log(value);
   if (value === null) {
     localStorage.setItem(key, "false");
   } else if (value === "true") {
@@ -22,6 +21,13 @@ const handleCheckboxChange = (event) => {
     localStorage.setItem(key, "false");
   }
 };
+
+if (localStorage.getItem("mute") === null) {
+  localStorage.setItem("mute", "false");
+}
+if (localStorage.getItem("loop") === null) {
+  localStorage.setItem("loop", "false");
+}
 
 checkboxes.forEach((item) => {
   item.addEventListener("change", handleCheckboxChange);

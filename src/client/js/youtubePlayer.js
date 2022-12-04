@@ -19,9 +19,7 @@ function onYouTubeIframeAPIReady() {
 }
 
 // 1) 동영상이 준비되면 발생하는 함수
-function onPlayerReady(event) {
-  console.log("안되는데");
-}
+function onPlayerReady(event) {}
 
 // 2) 플레이어의 상태에 따른 이벤트
 function onPlayerStateChange(event) {

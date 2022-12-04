@@ -39,17 +39,19 @@ const handleLoadedMetadata = () => {
   totalTimeSpan.innerText = formatTime(duration);
   timeline.max = Math.floor(duration);
 
-  const mute = Boolean(localStorage.getItem("mute"));
-  if (mute) {
+  const mute = localStorage.getItem("mute");
+  if (mute === "true") {
     video.muted = true;
     volumeInput.value = 0;
     muteIcon.className = "fas fa-volume-xmark";
   }
 
-  const loop = Boolean(localStorage.getItem("loop"));
-  if (loop) {
-    video.loop = true;
+  const loop = localStorage.getItem("loop");
+  console.log(loop);
+  if (loop === "true") {
     loopBtn.classList.add("active");
+  } else {
+    loopBtn.classList.remove("active");
   }
 };
 
