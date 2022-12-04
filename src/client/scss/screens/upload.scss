@@ -1,0 +1,19 @@
+#preview-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: inherit;
+  height: fit-content;
+  video {
+    margin: auto;
+    border-radius: 5px;
+  }
+
+  button {
+    margin: 20px;
+    border: 1px solid $gray;
+    padding: 10px 15px;
+    cursor: pointer;
+  }
+}

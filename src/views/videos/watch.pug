@@ -50,7 +50,7 @@ block content
                     | #{text}<br>
             button.video__description-more 더보기
     - if (String(loggedInUser._id) === String(video.owner._id))
-        div.video__owner-section
+        div.owner-section
             a(href=`/videos/${video._id}/edit`) 동영상 정보 수정
             button(data-id=`${video._id}`).video__delete-btn 동영상 삭제
     div.video__comment-section

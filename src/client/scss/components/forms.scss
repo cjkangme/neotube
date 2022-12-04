@@ -1,6 +1,8 @@
 .form-container {
   form {
-    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    width: 500px;
     margin: 0 auto;
     &:not(.search__form) {
       padding: 30px;
@@ -23,6 +25,10 @@
     &::placeholder {
       color: rgba(255, 255, 255, 0.7);
     }
+    &:disabled {
+      background-color: $bg-light;
+      color: $gray;
+    }
   }
 
   input[type="submit"],
@@ -36,9 +42,25 @@
     display: block;
   }
 
+  label {
+    margin-top: 15px;
+  }
   small {
     display: block;
     margin-bottom: 15px;
     color: $gray;
+  }
+  div {
+    height: 20px;
+  }
+
+  hr {
+    margin: 20px 0;
+  }
+
+  a {
+    &:hover {
+      color: $orange;
+    }
   }
 }

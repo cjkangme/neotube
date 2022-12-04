@@ -5,13 +5,33 @@
   flex-direction: column;
   align-items: center;
   margin-bottom: 50px;
-  img {
-    margin-bottom: 10px;
-  }
+  img,
   i {
-    font-size: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 150px;
+    margin-bottom: 30px;
+    border-radius: 50%;
+    background-color: $orange;
+    font-size: 3em;
   }
-  h3 {
-    font-size: 18px;
+  .profile__data-text {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 400px;
+    small {
+      display: flex;
+      align-items: center;
+      width: 80px;
+      margin-right: 30px;
+      margin-bottom: 30px;
+    }
   }
+}
+
+.profile__edit {
+  margin-bottom: 30px;
 }

@@ -203,7 +203,6 @@ export const postEditUser = async (req, res) => {
           : `/${file.path}`
         : avatarUrl,
       username,
-      location,
     },
     { new: true }
   ).populate("groups");

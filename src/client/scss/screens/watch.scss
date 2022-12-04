@@ -73,32 +73,6 @@
   }
 }
 
-.video__owner-section {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  width: inherit;
-  height: 40px;
-  margin: 20px 0;
-  a,
-  button {
-    display: flex;
-    align-items: center;
-    height: 36px;
-    margin-left: 10px;
-    border-radius: 15px;
-    padding: 10px;
-    background-color: $bg-light;
-    color: $orange;
-    font-size: 0.8em;
-    font-weight: 600;
-    cursor: pointer;
-    &:hover {
-      background-color: $bg-light--hover;
-    }
-  }
-}
-
 .video__comment-section {
   display: flex;
   flex-direction: column;

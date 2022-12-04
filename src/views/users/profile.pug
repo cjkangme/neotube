@@ -7,19 +7,20 @@ block content
             i(class="fa-solid fa-user")
         else
             img(src=`${user.avatarUrl}` width="100" height="100").avatar
-        div
+        div.profile__data-text
             small 이메일
             span=user.email
-        div
+        div.profile__data-text
             small 유저명
             span=user.username
-        div
-            small 지역
-            span=user.location
+        div.profile__data-text
+            small 가입일
+            span(data-date=`${user.createdAt}`).profile__user-createdAt=user.createdAt
     if loggedInUser._id == user._id
-        div.profile__edit
+        div.profile__edit.owner-section
             a(href="/users/edit") 프로필 수정하기 &rarr;
-    div.video-gird
+            a(href="/users/change-password") 비밀번호 변경하기 &rarr;
+    div.video-grid
         each video in user.videos
             +video(video)
         else

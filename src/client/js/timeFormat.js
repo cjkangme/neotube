@@ -1,5 +1,6 @@
 const dateStr = document.querySelectorAll(".video-mixin__createdAt");
 const videoDate = document.querySelector(".video__description-createdAt");
+const userDate = document.querySelector(".profile__user-createdAt");
 
 // mixin에서 보이는 업로드 날짜 format
 dateStr.forEach((item) => {
@@ -49,10 +50,15 @@ dateStr.forEach((item) => {
   item.innerText = text;
 });
 
+const dtfTime = (item, text) => {
+  if (item) {
+    const date = new Date(item.dataset.date);
+    const dtf = Intl.DateTimeFormat("ko-KR");
+    const formattedDate = dtf.format(date);
+    item.innerText = text + formattedDate;
+  }
+};
+
 // watch 화면에서 보이는 업로드 날짜 포맷
-if (videoDate) {
-  const date = new Date(videoDate.dataset.date);
-  const dtf = Intl.DateTimeFormat("ko-KR");
-  const formattedDate = dtf.format(date);
-  videoDate.innerText = `업로드: ${formattedDate}`;
-}
+dtfTime(videoDate, "업로드: ");
+dtfTime(userDate, "");

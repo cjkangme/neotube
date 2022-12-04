@@ -42,6 +42,7 @@ const handleLoadedMetadata = () => {
   const mute = Boolean(localStorage.getItem("mute"));
   if (mute) {
     video.muted = true;
+    volumeInput.value = 0;
     muteIcon.className = "fas fa-volume-xmark";
   }
 
@@ -98,7 +99,14 @@ const handleVolumeChange = () => {
 
 const handleVolumeInput = (event) => {
   const value = event.target.value;
+  if (value > 0.02) {
+    video.muted = false;
+  }
   video.volume = value;
+  muteIcon.className =
+    video.muted || volumeInput.value < 0.02
+      ? "fas fa-volume-xmark"
+      : "fas fa-volume-high";
 };
 
 const handleFullscreen = () => {
@@ -173,6 +181,10 @@ const handleEnded = (event) => {
     method: "POST",
   });
 };
+
+if (video.readyState >= 2) {
+  handleLoadedMetadata();
+}
 
 // Video Controls
 video.addEventListener("loadedmetadata", handleLoadedMetadata);

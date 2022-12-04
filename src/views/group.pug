@@ -7,11 +7,12 @@ block content
             i(class="fa-solid fa-folder")
         div.group__group-name #{group.groupName}
         div.group__video-count #{group.videos.length} 동영상
-        div.group__crud
-            button.group__edit
-                i(class="fas fa-pen-to-square")
-            button.group__remove
-                i(class="fas fa-xmark")
+        if String(group.owner) == loggedInUser._id
+            div.group__crud
+                button.group__edit
+                    i(class="fas fa-pen-to-square")
+                button.group__remove
+                    i(class="fas fa-xmark")
     div.video-grid
         each video in group.videos
             +video(video)

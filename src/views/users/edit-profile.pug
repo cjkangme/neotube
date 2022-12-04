@@ -1,13 +1,16 @@
 extends ../base
 
 block content 
-    form(method="POST" enctype="multipart/form-data").edit-profile__form
-        label(for="avatar") Avatar
-        input(id="avatar" name="avatar" type="file" accept="image/*")
-        input(name="email" type="text" value=loggedInUser.email disabled)
-        input(name="username" type="text" value=loggedInUser.username placeholder="Username")
-        input(name="location" type="text" value=loggedInUser.location placeholder="Location")
-        input(type="submit" value="Edit Confirm")
-        if !loggedInUser.socialId
-            hr
-            a(href="change-password") Change Password &rarr;
+    div.form-container
+        form(method="POST" enctype="multipart/form-data").edit-profile__form
+            label(for="avatar") 프로필 사진
+            input(id="avatar" name="avatar" type="file" accept="image/*")
+            label(for="email") 이메일 (변경할 수 없습니다)
+            input(id = "email" name="email" type="text" value=loggedInUser.email disabled)
+            label(for="username") 유저명
+            input(id="username" name="username" type="text" value=loggedInUser.username placeholder="Username")
+            div
+            input(type="submit" value="Edit Confirm")
+            if !loggedInUser.socialId
+                hr
+                a(href="change-password") Change Password &rarr;

@@ -7,6 +7,12 @@
   gap: 50px;
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
+
+.video-grid--toggled {
+  display: grid;
+  gap: 50px;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+}
 .auth-switch {
   text-align: center;
   margin-top: 40px;
@@ -19,4 +25,30 @@
   width: 150px;
   height: 150px;
   border-radius: 50%;
+}
+
+.owner-section {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: inherit;
+  height: 40px;
+  margin: 20px 0;
+  a,
+  button {
+    display: flex;
+    align-items: center;
+    height: 36px;
+    margin-left: 10px;
+    border-radius: 15px;
+    padding: 10px;
+    background-color: $bg-light;
+    color: $orange;
+    font-size: 0.8em;
+    font-weight: 600;
+    cursor: pointer;
+    &:hover {
+      background-color: $bg-light--hover;
+    }
+  }
 }
