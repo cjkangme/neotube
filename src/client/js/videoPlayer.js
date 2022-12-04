@@ -47,7 +47,6 @@ const handleLoadedMetadata = () => {
   }
 
   const loop = localStorage.getItem("loop");
-  console.log(loop);
   if (loop === "true") {
     loopBtn.classList.add("active");
   } else {
@@ -178,7 +177,7 @@ const handleKeydown = (event) => {
 
 // Video API
 const handleEnded = () => {
-  const id = video.dataset.id;
+  const id = videoContainer.dataset.id;
   fetch(`/api/videos/${id}/view`, {
     method: "POST",
   });
