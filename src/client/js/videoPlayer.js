@@ -177,8 +177,8 @@ const handleKeydown = (event) => {
 };
 
 // Video API
-const handleEnded = (event) => {
-  const { id } = video.dataset;
+const handleEnded = () => {
+  const id = video.dataset.id;
   fetch(`/api/videos/${id}/view`, {
     method: "POST",
   });
