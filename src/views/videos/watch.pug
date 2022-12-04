@@ -64,7 +64,7 @@ block content
                     textarea(rows="1", placeholder="로그인 후 이용해주세요.", disabled).video__comment-textarea
                     button(type="submit", disabled).video__comment-btn 작성
         div.video__comments
-            each comment in video.comments.reverse()
+            each comment in video.comments
                 div.video__comment
                     a(href=`/users/${comment.owner._id}`).comment__avatar
                         if comment.owner.avatarUrl
