@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Group from "../models/Group";
+import Video from "../models/Video";
 import User from "../models/User";
 
 // createGroup
@@ -120,7 +121,12 @@ export const deleteVideo = async (req, res) => {
 export const getGroup = async (req, res) => {
   const { id } = req.params;
   try {
-    const group = await Group.findById(id).populate("videos");
+    const group = await Group.findById(id).populate({
+      path: "videos",
+      populate: {
+        path: "owner",
+      },
+    });
     return res.render("group", {
       pageTitle: `그룹:${group.groupName}`,
       group,
