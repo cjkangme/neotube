@@ -48,6 +48,7 @@ const handleLoadedMetadata = () => {
 
   const loop = localStorage.getItem("loop");
   if (loop === "true") {
+    video.loop = true;
     loopBtn.classList.add("active");
   } else {
     loopBtn.classList.remove("active");
