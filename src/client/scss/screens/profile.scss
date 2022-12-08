@@ -35,3 +35,13 @@
 .profile__edit {
   margin-bottom: 30px;
 }
+
+.profile__videos {
+  h2 {
+    display: block;
+    padding: 15px 0;
+    color: $orange;
+    font-size: 1.2em;
+    font-weight: 600;
+  }
+}

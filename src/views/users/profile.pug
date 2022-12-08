@@ -20,8 +20,19 @@ block content
         div.profile__edit.owner-section
             a(href="/users/edit") 프로필 수정하기 &rarr;
             a(href="/users/change-password") 비밀번호 변경하기 &rarr;
-    div.video-grid
-        each video in user.videos
-            +video(video)
+    div.profile__videos
+        h2 업로드한 동영상
+        div.video-grid
+            each video in user.videos
+                +video(video)
+            else
+                span.empty__message 업로드한 동영상이 없습니다.
+        each group in user.groups
+            h2 그룹: #{group.groupName}
+            div.video-grid
+                each video in group.videos
+                    +video(video)
+                else
+                    span.empty__message 업로드한 동영상이 없습니다.
         else
-            span.empty__message 업로드한 동영상이 없습니다.
+            span.empty__message 생성한 그룹이 없습니다.
