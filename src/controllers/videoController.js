@@ -119,9 +119,10 @@ export const postUploadVideo = async (req, res) => {
       tags: Video.formatTags(tags),
       owner: loggedInUser._id,
     });
-    const user = await User.findById(loggedInUser._id);
+    const user = await User.findById(loggedInUser._id).populate("groups");
     user.videos.push(newVideo._id);
-    user.save();
+    await user.save();
+    req.session.loggedInUser = user;
   } catch (error) {
     console.log(error);
     req.flash("error", "오류가 발생했습니다. 다시 시도해주세요");
@@ -266,7 +267,9 @@ export const postUploadYoutube = async (req, res) => {
       owner: req.session.loggedInUser._id,
       tags: Video.formatTags(tags),
     });
-    const user = await User.findById(req.session.loggedInUser._id);
+    const user = await User.findById(req.session.loggedInUser._id).populate(
+      "groups"
+    );
     user.videos.push(createdVideo._id);
     await user.save();
     req.session.loggedInUser = user;
