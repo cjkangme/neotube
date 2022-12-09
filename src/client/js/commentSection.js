@@ -136,7 +136,6 @@ const handleTextareaKeypress = () => {
   textarea.style.height = "1px";
   textarea.style.height = 3 + textarea.scrollHeight + "px";
 
-  console.log(textarea.value);
   if (textarea.value == "") {
     addCommentBtn.disabled = true;
   } else {

@@ -77,7 +77,6 @@ const handleAddVideo = () => {
     if (item.classList.contains(CHANGE)) {
       const groupId = item.id;
       const videoId = videoContainer.dataset.id;
-      console.log(item.checked);
       if (item.checked) {
         const response = await groupFetch(
           "/api/groups/addvideo",

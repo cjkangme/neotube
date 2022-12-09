@@ -24,7 +24,6 @@ function onPlayerReady(event) {}
 // 2) 플레이어의 상태에 따른 이벤트
 function onPlayerStateChange(event) {
   if (event.data === 0) {
-    console.log("동영상 종료");
     const { id } = videoContainer.dataset;
     fetch(`/api/videos/${id}/view`, {
       method: "POST",
